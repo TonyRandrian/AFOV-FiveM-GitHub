@@ -1,1 +1,38 @@
-.vs
+# .NET build outputs
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+dist/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
+
+# Operating systems
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
