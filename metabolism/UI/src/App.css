@@ -4,7 +4,22 @@
     box-sizing: border-box;
 }
 
-#gauge-container {
+#container {
+    position: relative;
+    height: 100vh;
+}
+
+#main-gauge-container {
     width: 300px;
-    border: 1px solid
+    background-color: rgba(0, 0, 0, 0.048);
+    padding: 10px;
+}
+
+#full-gauge-container {
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.048);
+    padding: 25px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
