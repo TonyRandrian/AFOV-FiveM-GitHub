@@ -1,4 +1,6 @@
 using CitizenFX.Core;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 
@@ -11,6 +13,11 @@ namespace metabolism.Client
         public ClientMain()
         {
             Debug.WriteLine("Metabolism script enabled");
+            RegisterCommand("fill-pv", new Action<int, List<object>, string>(
+                (source, args, row) =>
+                {
+                    SendNuiMessage("{\"action\":\"addPV\",\"value\": 10 }");
+                }), false);
         }
 
         private void SetMenuVisible(bool visible)
