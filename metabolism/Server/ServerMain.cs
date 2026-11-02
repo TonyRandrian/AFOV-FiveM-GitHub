@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CitizenFX.Core;
+using metabolism.Server.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using static CitizenFX.Core.Native.API;
@@ -10,7 +11,7 @@ namespace metabolism.Server
     public class ServerMain : BaseScript
     {
         private readonly Dictionary<string, float> _hunger = new Dictionary<string, float>();
-        private readonly MetabolismConfig _config;
+        private readonly Metabolism _config;
 
 
         public ServerMain()
@@ -24,7 +25,7 @@ namespace metabolism.Server
                 return;
             }
 
-            _config = JsonConvert.DeserializeObject<MetabolismConfig>(json);
+            _config = JsonConvert.DeserializeObject<Metabolism>(json);
 
             if (_config?.Hunger == null)
             {
@@ -62,20 +63,5 @@ namespace metabolism.Server
                 }
             }
         }
-    }
-
-    public class MetabolismConfig
-    {
-        [JsonProperty("hunger")]
-        public HungerConfig Hunger { get; set; }
-    }
-
-    public class HungerConfig
-    {
-        [JsonProperty("max")]
-        public float Max { get; set; }
-
-        [JsonProperty("drain")]
-        public float Drain { get; set; }
     }
 }

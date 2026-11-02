@@ -1,6 +1,7 @@
 {
   "hunger": {
     "max": 100.0,
-    "drain": 0.2
+    "drain": 0.2,
+    "regen": 2
   }
 }
