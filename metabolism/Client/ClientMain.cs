@@ -1,6 +1,5 @@
-using CitizenFX.Core;
+﻿using CitizenFX.Core;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 
@@ -8,21 +7,17 @@ namespace metabolism.Client
 {
     public class ClientMain : BaseScript
     {
-        bool isMenuVisible = false;
+        private bool isMenuVisible = false;
 
         public ClientMain()
         {
-            Debug.WriteLine("Metabolism script enabled");
-            RegisterCommand("fill-pv", new Action<int, List<object>, string>(
-                (source, args, row) =>
-                {
-                    SendNuiMessage("{\"action\":\"addPV\",\"value\": 10 }");
-                }), false);
+            EventHandlers["metabolism:updateHunger"] +=
+                new Action<float>(OnHungerUpdated);
         }
 
-        private void SetMenuVisible(bool visible)
+        private void OnHungerUpdated(float hunger)
         {
-            string json = "{\"action\":\"setVisible\",\"visible\":" + (visible ? "true" : "false") + "}";
+            string json = "{\"action\":\"gaugeVariation\", \"value\":" + hunger + "}";
             SendNuiMessage(json);
         }
 
@@ -31,11 +26,18 @@ namespace metabolism.Client
         {
             if (IsControlJustPressed(0, 311))
             {
-                SetMenuVisible(!isMenuVisible);
-                isMenuVisible = !isMenuVisible;
+                Debug.WriteLine("Touch K pressed");
+                ToggleMenu(!isMenuVisible);
             }
 
             return Task.FromResult(0);
+        }
+
+        private void ToggleMenu(bool visible)
+        {
+            string json = "{\"action\":\"setVisible\",\"visible\":" + (visible ? "true" : "false") + "}";
+            SendNuiMessage(json);
+            isMenuVisible = visible;
         }
     }
 }
