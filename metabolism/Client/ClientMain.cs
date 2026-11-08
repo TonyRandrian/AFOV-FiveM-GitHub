@@ -26,7 +26,6 @@ namespace metabolism.Client
         {
             if (IsControlJustPressed(0, 311))
             {
-                Debug.WriteLine("Touch K pressed");
                 ToggleMenu(!isMenuVisible);
             }
 

@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CitizenFX.Core;
+﻿using CitizenFX.Core;
 using metabolism.Server.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
+using System;
 
 namespace metabolism.Server
 {
     public class ServerMain : BaseScript
     {
-        private readonly Dictionary<string, float> _hunger = new Dictionary<string, float>();
+        private readonly Dictionary<string, float> _gauge = new Dictionary<string, float>();
         private readonly Metabolism _config;
 
 
@@ -24,18 +24,18 @@ namespace metabolism.Server
                 Debug.WriteLine("[Metabolism] Unable to read config.json");
                 return;
             }
-
+            
             _config = JsonConvert.DeserializeObject<Metabolism>(json);
 
-            if (_config?.Hunger == null)
-            {
-                Debug.WriteLine("[Metabolism] Hunger configuration invalid");
-                return;
-            }
+            //_ = Run();
 
-            Debug.WriteLine($"[Metabolism] Drain : {_config.Hunger.Drain}");
+            EventHandlers["playerJoining"] +=
+                new Action<Player>(OnPlayerJoined);
+        }
 
-            _ = Run();
+        private void OnPlayerJoined([FromSource] Player player)
+        {
+            Debug.WriteLine($"[Metabolism] Player joined : {player.Name}");
         }
 
         private async Task Run()
@@ -48,17 +48,17 @@ namespace metabolism.Server
                 {
                     string playerId = player.Handle;
 
-                    if (!_hunger.ContainsKey(playerId))
+                    if (!_gauge.ContainsKey(playerId))
                     {
-                        _hunger[playerId] = _config.Hunger.Max;
+                        _gauge[playerId] = _config.Hunger.Max;
                     }
 
-                    _hunger[playerId] = System.Math.Max(0.0f, _hunger[playerId] - _config.Hunger.Drain);
+                    _gauge[playerId] = System.Math.Max(0.0f, _gauge[playerId] - _config.Hunger.Drain);
 
                     TriggerClientEvent(
                         player,
                         "metabolism:updateHunger",
-                        _hunger[playerId]
+                        _gauge[playerId]
                         );
                 }
             }
