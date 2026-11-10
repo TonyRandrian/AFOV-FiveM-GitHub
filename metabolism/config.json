@@ -1,25 +1,30 @@
 {
   "hunger": {
+    "name": "Hunger",
     "max": 100.0,
     "drain": 0.2,
     "regen": 2
   },
   "thirst": {
+    "name": "Thirst",
     "max": 100.0,
     "drain": 0.3,
     "regen": 2
   },
   "hygiene": {
+    "name": "Hygiene",
     "max": 100.0,
     "drain": 0.4,
     "regen": 2
   },
   "needs": {
+    "name": "Needs",
     "max": 100.0,
     "drain": 1,
     "regen": 2
   },
   "sleep": {
+    "name": "Sleep",
     "max": 100.0,
     "drain": 0.5,
     "regen": 2

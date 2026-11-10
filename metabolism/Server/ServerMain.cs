@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 using System;
+using System.Linq;
 
 namespace metabolism.Server
 {
@@ -12,6 +13,7 @@ namespace metabolism.Server
     {
         private readonly Dictionary<string, float> _gauge = new Dictionary<string, float>();
         private readonly Metabolism _config;
+        private readonly List<Player> _connectedPlayers = new List<Player>();
 
 
         public ServerMain()
@@ -27,15 +29,27 @@ namespace metabolism.Server
             
             _config = JsonConvert.DeserializeObject<Metabolism>(json);
 
-            //_ = Run();
+            _ = Run();
 
             EventHandlers["playerJoining"] +=
                 new Action<Player>(OnPlayerJoined);
+
+            EventHandlers["playerDropped"] +=
+                new Action<Player>(OnPlayerDropped);
+
+            
         }
 
         private void OnPlayerJoined([FromSource] Player player)
         {
             Debug.WriteLine($"[Metabolism] Player joined : {player.Name}");
+            _connectedPlayers.Add(player);
+        }
+
+        private void OnPlayerDropped([FromSource] Player player)
+        {
+            Debug.WriteLine($"[Metabolism] Player dropped : {player.Name}");
+            _connectedPlayers.Remove(player);
         }
 
         private async Task Run()
@@ -44,17 +58,16 @@ namespace metabolism.Server
             {
                 await Delay(1000);
 
-                foreach (Player player in Players)
+                foreach (Player player in _connectedPlayers.ToList())
                 {
                     string playerId = player.Handle;
 
                     if (!_gauge.ContainsKey(playerId))
                     {
-                        _gauge[playerId] = _config.Hunger.Max;
+                        
                     }
 
-                    _gauge[playerId] = System.Math.Max(0.0f, _gauge[playerId] - _config.Hunger.Drain);
-
+                    
                     TriggerClientEvent(
                         player,
                         "metabolism:updateHunger",

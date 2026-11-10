@@ -4,6 +4,9 @@ namespace metabolism.Server.Models.Gauge
 {
     public class Gauge
     {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
         [JsonProperty("max")]
         public float Max { get; set; }
 
