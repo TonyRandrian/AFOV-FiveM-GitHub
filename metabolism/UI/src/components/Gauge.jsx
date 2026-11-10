@@ -17,7 +17,7 @@ function Gauge({ label, color, value, maxValue }) {
 
   return (
     <div>
-      {value + "/" + maxValue}
+      {Math.floor(value)}/{Math.floor(maxValue)}
       <div className="gauge-group">
         {label}
         <div className="max-value" style={maxValueStyle}>

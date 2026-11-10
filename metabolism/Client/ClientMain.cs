@@ -11,13 +11,14 @@ namespace metabolism.Client
 
         public ClientMain()
         {
-            EventHandlers["metabolism:updateHunger"] +=
-                new Action<float>(OnHungerUpdated);
+            EventHandlers[Events.UPDATE_STATE] +=
+                new Action<string>(OnStateUpdated);
         }
 
-        private void OnHungerUpdated(float hunger)
+        private void OnStateUpdated(string gaugesJson)
         {
-            string json = "{\"action\":\"gaugeVariation\", \"value\":" + hunger + "}";
+            string json = "{\"action\":\"updateState\", \"value\":" + gaugesJson + "}";
+            Debug.WriteLine(gaugesJson);
             SendNuiMessage(json);
         }
 
