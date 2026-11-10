@@ -1,32 +1,101 @@
-{
-  "hunger": {
-    "name": "Hunger",
-    "max": 100.0,
-    "drain": 0.2,
-    "regen": 2
+[
+  {
+    "Id": "00000000-0000-0000-0000-000000000001",
+    "Name": "Santé (PV)",
+    "VariationCondition": "Custom",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 20.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 0.0,
+    "DefaultVariationDrain": 0.0
   },
-  "thirst": {
-    "name": "Thirst",
-    "max": 100.0,
-    "drain": 0.3,
-    "regen": 2
+  {
+    "Id": "00000000-0000-0000-0000-000000000002",
+    "Name": "Apnée",
+    "VariationCondition": "Underwater",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 20.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 10.0,
+    "DefaultVariationDrain": 5.0
   },
-  "hygiene": {
-    "name": "Hygiene",
-    "max": 100.0,
-    "drain": 0.4,
-    "regen": 2
+  {
+    "Id": "00000000-0000-0000-0000-000000000003",
+    "Name": "Endurance",
+    "VariationCondition": "Sprinting",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 10.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 5.0,
+    "DefaultVariationDrain": 8.0
   },
-  "needs": {
-    "name": "Needs",
-    "max": 100.0,
-    "drain": 1,
-    "regen": 2
+  {
+    "Id": "00000000-0000-0000-0000-000000000004",
+    "Name": "Faim",
+    "VariationCondition": "Always",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 15.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 0.0,
+    "DefaultVariationDrain": 0.05
   },
-  "sleep": {
-    "name": "Sleep",
-    "max": 100.0,
-    "drain": 0.5,
-    "regen": 2
+  {
+    "Id": "00000000-0000-0000-0000-000000000005",
+    "Name": "Soif",
+    "VariationCondition": "Always",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 15.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 0.0,
+    "DefaultVariationDrain": 0.06
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000006",
+    "Name": "Sommeil",
+    "VariationCondition": "Always",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 20.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 0.0,
+    "DefaultVariationDrain": 0.02
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000007",
+    "Name": "Hygiène",
+    "VariationCondition": "Always",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 10.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 0.0,
+    "DefaultVariationDrain": 0.01
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000008",
+    "Name": "Besoins",
+    "VariationCondition": "Always",
+    "UpperCriticalThreshold": null,
+    "LowerCriticalThreshold": 15.0,
+    "DefaultMaxValue": 100.0,
+    "DefaultMinValue": 0.0,
+    "DefaultVariationRegen": 0.0,
+    "DefaultVariationDrain": 0.02
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000009",
+    "Name": "Température corporelle",
+    "VariationCondition": "Custom",
+    "UpperCriticalThreshold": 39.0,
+    "LowerCriticalThreshold": 35.0,
+    "DefaultMaxValue": 45.0,
+    "DefaultMinValue": 30.0,
+    "DefaultVariationRegen": 0.0,
+    "DefaultVariationDrain": 0.0
   }
-}
+]

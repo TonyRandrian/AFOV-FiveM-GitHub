@@ -6,6 +6,7 @@ ui_page 'UI/dist/index.html'
 file 'Client/bin/Release/**/publish/*.dll'
 
 files {
+    'config.json',
     'UI/dist/index.html',
     'UI/dist/**/*'
 }

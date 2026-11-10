@@ -1,43 +1,46 @@
 ﻿using CitizenFX.Core;
-using metabolism.Server.Models;
+using metabolism.Server.Domain;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using static CitizenFX.Core.Native.API;
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using static CitizenFX.Core.Native.API;
 
 namespace metabolism.Server
 {
     public class ServerMain : BaseScript
     {
-        private readonly Dictionary<string, float> _gauge = new Dictionary<string, float>();
-        private readonly Metabolism _config;
-        private readonly List<Player> _connectedPlayers = new List<Player>();
-
+        private List<Player> _connectedPlayers;
+        private readonly List<Gauge> _gauges;
 
         public ServerMain()
         {
+            _connectedPlayers = new List<Player>();
+            _gauges = LoadGauges();
+
             Debug.WriteLine("Metabolism script started!");
-            string json = LoadResourceFile(GetCurrentResourceName(), "config.json");
 
-            if (string.IsNullOrWhiteSpace(json))
-            {
-                Debug.WriteLine("[Metabolism] Unable to read config.json");
-                return;
-            }
-            
-            _config = JsonConvert.DeserializeObject<Metabolism>(json);
-
-            _ = Run();
-
-            EventHandlers["playerJoining"] +=
+            EventHandlers[Events.PLAYER_JOINED] +=
                 new Action<Player>(OnPlayerJoined);
 
-            EventHandlers["playerDropped"] +=
+            EventHandlers[Events.PLAYER_DROPPED] +=
                 new Action<Player>(OnPlayerDropped);
+        }
 
-            
+        private static List<Gauge> LoadGauges()
+        {
+            string configJson = LoadResourceFile(GetCurrentResourceName(), "config.json");
+
+            if (string.IsNullOrWhiteSpace(configJson))
+            {
+                throw new InvalidOperationException(
+                    "[Metabolism] Unable to load config.json.");
+            }
+
+            List<Gauge> gauges = JsonConvert.DeserializeObject<List<Gauge>>(configJson) ?? throw new InvalidOperationException(
+                    "[Metabolism] config.json content not valid.");
+
+            Debug.WriteLine($"[Metabolism] {gauges.Count} gauges loaded.");
+            return gauges;
         }
 
         private void OnPlayerJoined([FromSource] Player player)
@@ -50,31 +53,6 @@ namespace metabolism.Server
         {
             Debug.WriteLine($"[Metabolism] Player dropped : {player.Name}");
             _connectedPlayers.Remove(player);
-        }
-
-        private async Task Run()
-        {
-            while (true)
-            {
-                await Delay(1000);
-
-                foreach (Player player in _connectedPlayers.ToList())
-                {
-                    string playerId = player.Handle;
-
-                    if (!_gauge.ContainsKey(playerId))
-                    {
-                        
-                    }
-
-                    
-                    TriggerClientEvent(
-                        player,
-                        "metabolism:updateHunger",
-                        _gauge[playerId]
-                        );
-                }
-            }
         }
     }
 }
