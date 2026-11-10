@@ -7,7 +7,7 @@ namespace metabolism.Client
 {
     public class ClientMain : BaseScript
     {
-        private bool isMenuVisible = false;
+        private bool isHudVisible = false;
 
         public ClientMain()
         {
@@ -18,26 +18,26 @@ namespace metabolism.Client
         private void OnStateUpdated(string gaugesJson)
         {
             string json = "{\"action\":\"updateState\", \"value\":" + gaugesJson + "}";
-            Debug.WriteLine(gaugesJson);
             SendNuiMessage(json);
         }
 
         [Tick]
         public Task OnTick()
         {
+            
             if (IsControlJustPressed(0, 311))
             {
-                ToggleMenu(!isMenuVisible);
+                ToggleHud(!isHudVisible);
             }
 
             return Task.FromResult(0);
         }
 
-        private void ToggleMenu(bool visible)
+        private void ToggleHud(bool visible)
         {
-            string json = "{\"action\":\"setVisible\",\"visible\":" + (visible ? "true" : "false") + "}";
+            string json = "{\"action\":\"setHudVisible\",\"value\":" + (visible ? "true" : "false") + "}";
             SendNuiMessage(json);
-            isMenuVisible = visible;
+            isHudVisible = visible;
         }
     }
 }
