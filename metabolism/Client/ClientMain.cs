@@ -24,6 +24,18 @@ namespace metabolism.Client
         [Tick]
         public Task OnTick()
         {
+            if (IsPauseMenuActive() || 
+                IsWarningMessageActive() ||
+                IsCutsceneActive() ||
+                GetIsLoadingScreenActive()
+                )
+            {
+                ToggleAllHud(false);
+            }
+            else
+            {
+                ToggleAllHud(true);
+            }
             
             if (IsControlJustPressed(0, 311))
             {
@@ -38,6 +50,12 @@ namespace metabolism.Client
             string json = "{\"action\":\"setHudVisible\",\"value\":" + (visible ? "true" : "false") + "}";
             SendNuiMessage(json);
             isHudVisible = visible;
+        }
+
+        private void ToggleAllHud(bool visible)
+        {
+            string json = "{\"action\":\"setAllHudVisible\",\"value\":" + (visible ? "true" : "false") + "}";
+            SendNuiMessage(json);
         }
     }
 }
