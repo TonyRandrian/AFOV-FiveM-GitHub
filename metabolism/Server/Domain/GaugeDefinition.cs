@@ -2,7 +2,7 @@
 
 namespace metabolism.Server.Domain
 {
-    public class Gauge
+    public class GaugeDefinition
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

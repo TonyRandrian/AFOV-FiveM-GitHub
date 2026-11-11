@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using metabolism.Shared;
 using System;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
@@ -7,7 +8,10 @@ namespace metabolism.Client
 {
     public class ClientMain : BaseScript
     {
-        private bool isHudVisible = false;
+        private bool _isHudVisible = false;
+        private bool _isAllHudVisible = true;
+        private PlayerActivity _lastActivity = PlayerActivity.None;
+
 
         public ClientMain()
         {
@@ -17,43 +21,67 @@ namespace metabolism.Client
 
         private void OnStateUpdated(string gaugesJson)
         {
-            string json = "{\"action\":\"updateState\", \"value\":" + gaugesJson + "}";
-            SendNuiMessage(json);
+            SendNuiMessage("{\"action\":\"updateState\", \"value\":" + gaugesJson + "}");
         }
 
         [Tick]
-        public Task OnTick()
+        public Task OnHudTick()
         {
-            if (IsPauseMenuActive() || 
-                IsWarningMessageActive() ||
-                IsCutsceneActive() ||
-                GetIsLoadingScreenActive()
-                )
+            bool shouldShow = !(IsPauseMenuActive() 
+                || IsWarningMessageActive() 
+                || IsCutsceneActive() 
+                || GetIsLoadingScreenActive());
+
+            Debug.WriteLine($"Should show : {shouldShow}");
+            Debug.WriteLine($"Should show & _isAllHudVisible: {shouldShow && _isAllHudVisible}");
+
+            if (shouldShow != _isAllHudVisible)
             {
-                ToggleAllHud(false);
-            }
-            else
-            {
-                ToggleAllHud(true);
+                SetAllHudVisible(shouldShow);
             }
             
             if (IsControlJustPressed(0, 311))
             {
-                ToggleHud(!isHudVisible);
+                SetHudVisible(!_isHudVisible);
             }
 
             return Task.FromResult(0);
         }
 
-        private void ToggleHud(bool visible)
+        [Tick]
+        public async Task OnActivityTick()
         {
-            string json = "{\"action\":\"setHudVisible\",\"value\":" + (visible ? "true" : "false") + "}";
-            SendNuiMessage(json);
-            isHudVisible = visible;
+            await Delay(250);
+
+            int ped = PlayerPedId();
+            PlayerActivity current = PlayerActivity.None;
+
+            if (IsPedSwimmingUnderWater(ped))
+            {
+                current |= PlayerActivity.Underwater;
+            }
+            if (IsPedSprinting(ped))
+            {
+                current |= PlayerActivity.Sprinting;
+            }
+
+            if (current != _lastActivity)
+            {
+                _lastActivity = current;
+                TriggerServerEvent(Events.PLAYER_ACTIVITY_CHANGED, (int)current);
+            }
         }
 
-        private void ToggleAllHud(bool visible)
+        private void SetHudVisible(bool visible)
         {
+            _isHudVisible = visible;
+            string json = "{\"action\":\"setHudVisible\",\"value\":" + (visible ? "true" : "false") + "}";
+            SendNuiMessage(json);
+        }
+
+        private void SetAllHudVisible(bool visible)
+        {
+            _isAllHudVisible = visible;
             string json = "{\"action\":\"setAllHudVisible\",\"value\":" + (visible ? "true" : "false") + "}";
             SendNuiMessage(json);
         }

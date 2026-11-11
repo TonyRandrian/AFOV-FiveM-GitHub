@@ -20,9 +20,9 @@ function App() {
       }
     };
 
-      window.addEventListener("message", handler);
-      return () => window.removeEventListener("message", handler);
-    }, []);
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
 
   return (
     <div id="container">
@@ -38,7 +38,14 @@ function App() {
 
       {isHudVisible && isAllHudVisible && (
         <div id="full-gauge-container">
-          {gauges.map(gauge => <Gauge label={gauge.Gauge.Name} color="rgb(128, 126, 126)" value={gauge.ActualValue} maxValue={gauge.MaxValue}></Gauge>)}
+          {gauges.map(gauge => (
+            <Gauge
+              key={gauge.Name}
+              label={gauge.Name}
+              color="rgb(128, 126, 126)"
+              value={gauge.Value}
+              maxValue={gauge.Max} />
+          ))}
         </div>
       )}
     </div>
