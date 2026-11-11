@@ -79,7 +79,7 @@ namespace metabolism.Server
                     characterGauge.Gauge.DefaultMinValue,
                     characterGauge.ActualValue - characterGauge.VariationDrain);
             }
-
+            
             playerState.Player.TriggerEvent(
                 Events.UPDATE_STATE,
                 JsonConvert.SerializeObject(playerState.Gauges)
@@ -97,7 +97,7 @@ namespace metabolism.Server
 
                 Character character = new Character
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Identifiers = player.Identifiers,
                     IsOnline = true,
                     Nickname = player.Name
@@ -112,7 +112,7 @@ namespace metabolism.Server
 
                     CharacterGauge characterGauge = new CharacterGauge
                     {
-                        Id = new Guid(),
+                        Id = Guid.NewGuid(),
                         Character = character,
                         Gauge = gauge,
                         MaxValue = gauge.DefaultMaxValue,
