@@ -32,9 +32,6 @@ namespace metabolism.Client
                 || IsCutsceneActive() 
                 || GetIsLoadingScreenActive());
 
-            Debug.WriteLine($"Should show : {shouldShow}");
-            Debug.WriteLine($"Should show & _isAllHudVisible: {shouldShow && _isAllHudVisible}");
-
             if (shouldShow != _isAllHudVisible)
             {
                 SetAllHudVisible(shouldShow);

@@ -1,12 +1,9 @@
 ﻿using CitizenFX.Core;
 using metabolism.Server.Application;
-using metabolism.Server.Domain;
 using metabolism.Server.Handlers;
 using metabolism.Server.Infrastructure.Config;
 using metabolism.Server.Infrastructure.Network;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 

@@ -5,7 +5,7 @@ import Gauge from "./components/Gauge";
 function App() {
   const [isHudVisible, setHudVisible] = useState(false);
   const [isAllHudVisible, setAllHudVisible] = useState(true);
-  const [gauges, setGauges] = useState([]);
+  const [gauges, setGauges] = useState(null);
 
   useEffect(() => {
     const handler = (event) => {
@@ -27,27 +27,39 @@ function App() {
   return (
     <div id="container">
       {
-        isAllHudVisible && (
+        gauges && isAllHudVisible && (
           <div id="main-gauge-container">
-            <Gauge label="PV" color="#F00" value="100" maxValue="100"></Gauge>
-            <Gauge label="Stamina" color="#00F" value="70" maxValue="100"></Gauge>
-            <Gauge label="Apnea" color="#03fcf8" value="100" maxValue="100"></Gauge>
+            {
+              gauges.Permanents.map(gauge => (
+                <Gauge
+                  key={gauge.Name}
+                  label={gauge.Name}
+                  color="rgb(0, 85, 0)"
+                  value={gauge.Value}
+                  maxValue={gauge.Max}
+                />
+              ))
+            }
           </div>
         )
       }
 
-      {isHudVisible && isAllHudVisible && (
-        <div id="full-gauge-container">
-          {gauges.map(gauge => (
-            <Gauge
-              key={gauge.Name}
-              label={gauge.Name}
-              color="rgb(128, 126, 126)"
-              value={gauge.Value}
-              maxValue={gauge.Max} />
-          ))}
-        </div>
-      )}
+      {
+        gauges && isHudVisible && isAllHudVisible && (
+          <div id="full-gauge-container">
+            {
+              gauges.Hiddens.map(gauge => (
+                <Gauge
+                  key={gauge.Name}
+                  label={gauge.Name}
+                  color="rgb(128, 126, 126)"
+                  value={gauge.Value}
+                  maxValue={gauge.Max} />
+              ))
+            }
+          </div>
+        )
+      }
     </div>
   );
 }

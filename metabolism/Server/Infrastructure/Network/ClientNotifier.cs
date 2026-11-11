@@ -1,9 +1,9 @@
 ﻿using metabolism.Server.Application;
 using metabolism.Server.Application.Abstractions;
+using metabolism.Server.Domain;
 using metabolism.Shared.DTOs;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace metabolism.Server.Infrastructure.Network
 {
@@ -11,16 +11,39 @@ namespace metabolism.Server.Infrastructure.Network
     {
         public void SendGauges(PlayerState state)
         {
-            List<GaugeStateDto> dtos = state.Gauges
-                .Select(g => new GaugeStateDto
-                {
-                    Name = g.Definition.Name,
-                    Value = g.Value,
-                    Max = g.Max
-                })
-                .ToList();
+            List<GaugeStateDto> permanents = new List<GaugeStateDto>();
+            List<GaugeStateDto> hiddens = new List<GaugeStateDto>();
 
-            state.Player.TriggerEvent(Events.UPDATE_STATE, JsonConvert.SerializeObject(dtos));
+            foreach (CharacterGauge gauge in state.Gauges)
+            {
+                if (gauge.Definition.DisplayType == GaugeDisplayType.PERMANENT)
+                {
+                    permanents.Add(new GaugeStateDto
+                    {
+                        Name = gauge.Definition.Name,
+                        Value = gauge.Value,
+                        Max = gauge.Max
+                    });
+                } 
+                else
+                {
+                    hiddens.Add(new GaugeStateDto
+                    {
+                        Name = gauge.Definition.Name,
+                        Value = gauge.Value,
+                        Max = gauge.Max
+                    });
+                }
+            }
+
+            object response = new 
+            {
+                Permanents = permanents,
+                Hiddens = hiddens
+            };
+
+            string responseJson = JsonConvert.SerializeObject(response);
+            state.Player.TriggerEvent(Events.UPDATE_STATE, responseJson);
         }
     }
 }

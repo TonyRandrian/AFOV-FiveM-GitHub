@@ -2,9 +2,9 @@
 {
     public enum GaugeVariationCondition
     {
-        Always,      
-        Underwater,
-        Sprinting,
-        Custom
+        ALWAYS,      
+        UNDERWATER,
+        SPRINTING,
+        CUSTOM
     }
 }

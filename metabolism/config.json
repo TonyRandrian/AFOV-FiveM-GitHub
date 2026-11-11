@@ -1,101 +1,110 @@
 [
   {
     "Id": "00000000-0000-0000-0000-000000000001",
-    "Name": "Santé (PV)",
-    "VariationCondition": "Custom",
+    "Name": "PV",
+    "VariationCondition": "CUSTOM",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 20.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 0.0,
-    "DefaultVariationDrain": 0.0
+    "DefaultVariationDrain": 0.0,
+    "DisplayType": "Permanent"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000002",
-    "Name": "Apnée",
-    "VariationCondition": "Underwater",
+    "Name": "Apnea",
+    "VariationCondition": "UNDERWATER",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 20.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 10.0,
-    "DefaultVariationDrain": 5.0
+    "DefaultVariationDrain": 5.0,
+    "DisplayType": "Permanent"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000003",
-    "Name": "Endurance",
-    "VariationCondition": "Sprinting",
+    "Name": "Stamina",
+    "VariationCondition": "SPRINTING",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 10.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 5.0,
-    "DefaultVariationDrain": 8.0
+    "DefaultVariationDrain": 8.0,
+    "DisplayType": "Permanent"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000004",
-    "Name": "Faim",
-    "VariationCondition": "Always",
+    "Name": "Hunger",
+    "VariationCondition": "ALWAYS",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 15.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 0.0,
-    "DefaultVariationDrain": 0.05
+    "DefaultVariationDrain": 0.05,
+    "DisplayType": "Hidden"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000005",
-    "Name": "Soif",
-    "VariationCondition": "Always",
+    "Name": "Thirst",
+    "VariationCondition": "ALWAYS",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 15.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 0.0,
-    "DefaultVariationDrain": 0.06
+    "DefaultVariationDrain": 0.06,
+    "DisplayType": "Hidden"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000006",
-    "Name": "Sommeil",
-    "VariationCondition": "Always",
+    "Name": "Sleep",
+    "VariationCondition": "ALWAYS",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 20.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 0.0,
-    "DefaultVariationDrain": 0.02
+    "DefaultVariationDrain": 0.02,
+    "DisplayType": "Hidden"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000007",
-    "Name": "Hygiène",
-    "VariationCondition": "Always",
+    "Name": "Hygiene",
+    "VariationCondition": "ALWAYS",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 10.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 0.0,
-    "DefaultVariationDrain": 0.01
+    "DefaultVariationDrain": 0.01,
+    "DisplayType": "Hidden"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000008",
-    "Name": "Besoins",
-    "VariationCondition": "Always",
+    "Name": "Needs",
+    "VariationCondition": "ALWAYS",
     "UpperCriticalThreshold": null,
     "LowerCriticalThreshold": 15.0,
     "DefaultMaxValue": 100.0,
     "DefaultMinValue": 0.0,
     "DefaultVariationRegen": 0.0,
-    "DefaultVariationDrain": 0.02
+    "DefaultVariationDrain": 0.02,
+    "DisplayType": "Hidden"
   },
   {
     "Id": "00000000-0000-0000-0000-000000000009",
-    "Name": "Température corporelle",
-    "VariationCondition": "Custom",
+    "Name": "Temperature",
+    "VariationCondition": "CUSTOM",
     "UpperCriticalThreshold": 39.0,
     "LowerCriticalThreshold": 35.0,
     "DefaultMaxValue": 45.0,
     "DefaultMinValue": 30.0,
     "DefaultVariationRegen": 0.0,
-    "DefaultVariationDrain": 0.0
+    "DefaultVariationDrain": 0.0,
+    "DisplayType": "Hidden"
   }
 ]

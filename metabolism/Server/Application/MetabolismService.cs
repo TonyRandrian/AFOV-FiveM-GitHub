@@ -85,7 +85,7 @@ namespace metabolism.Server.Application
             {
                 GaugeVariationCondition condition = gauge.Definition.VariationCondition;
 
-                if (condition == GaugeVariationCondition.Custom)
+                if (condition == GaugeVariationCondition.CUSTOM)
                 {
                     continue;
                 }
@@ -105,11 +105,11 @@ namespace metabolism.Server.Application
         {
             switch (condition)
             {
-                case GaugeVariationCondition.Always:
+                case GaugeVariationCondition.ALWAYS:
                     return true;
-                case GaugeVariationCondition.Underwater:
+                case GaugeVariationCondition.UNDERWATER:
                     return activity.HasFlag(PlayerActivity.Underwater);
-                case GaugeVariationCondition.Sprinting:
+                case GaugeVariationCondition.SPRINTING:
                     return activity.HasFlag(PlayerActivity.Sprinting);
                 default:
                     return false;
