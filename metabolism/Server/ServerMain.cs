@@ -105,11 +105,6 @@ namespace metabolism.Server
 
                 foreach (Gauge gauge in _gauges)
                 {
-                    if (gauge.VariationCondition != GaugeVariationCondition.Always)
-                    {
-                        continue;
-                    }
-
                     CharacterGauge characterGauge = new CharacterGauge
                     {
                         Id = Guid.NewGuid(),
