@@ -13,6 +13,6 @@ namespace metabolism.Server.Domain
         public float DefaultVariationRegen { get; set; }
         public float DefaultVariationDrain { get; set; }
         public GaugeVariationCondition VariationCondition { get; set; }
-        public GaugeDisplayType DisplayType { get; set; }
+        public GaugeDisplayTypeEnum DisplayType { get; set; }
     }
 }

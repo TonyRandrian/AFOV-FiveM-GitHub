@@ -16,7 +16,7 @@ namespace metabolism.Server.Infrastructure.Network
 
             foreach (CharacterGauge gauge in state.Gauges)
             {
-                if (gauge.Definition.DisplayType == GaugeDisplayType.PERMANENT)
+                if (gauge.Definition.DisplayType == GaugeDisplayTypeEnum.PERMANENT)
                 {
                     permanents.Add(new GaugeStateDto
                     {

@@ -1,6 +1,7 @@
 ﻿using CitizenFX.Core;
 using metabolism.Shared;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 
@@ -17,11 +18,36 @@ namespace metabolism.Client
         {
             EventHandlers[Events.UPDATE_STATE] +=
                 new Action<string>(OnStateUpdated);
+            EventHandlers[Events.GAME_EVENT_TRIGGERED] +=
+                new Action<string, List<object>>(OnGameEventTriggered);
         }
 
         private void OnStateUpdated(string gaugesJson)
         {
             SendNuiMessage("{\"action\":\"updateState\", \"value\":" + gaugesJson + "}");
+        }
+
+        private void OnGameEventTriggered(string eventName, List<object> args)
+        {
+            if (eventName == "CEventNetworkEntityDamage")
+            {
+                int victimHandle = Convert.ToInt32(args[0]);
+
+                if (DoesEntityExist(victimHandle) && IsEntityAPed(victimHandle))
+                {
+                    if (victimHandle == Game.PlayerPed.Handle)
+                    {
+                        int boneId = 0;
+                        bool success = GetPedLastDamageBone(victimHandle, ref boneId);
+
+                        if (success && boneId != 0)
+                        {
+                            Debug.WriteLine($"Damage : {boneId}");
+                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId);
+                        }
+                    }
+                }
+            }
         }
 
         [Tick]

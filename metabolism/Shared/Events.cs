@@ -4,4 +4,6 @@ public static class Events
     public const string PLAYER_ACTIVITY_CHANGED = "metabolism:activityChanged";
     public const string PLAYER_JOINED = "playerJoining";
     public const string PLAYER_DROPPED = "playerDropped";
+    public const string GAME_EVENT_TRIGGERED = "gameEventTriggered";
+    public const string PLAYER_DAMAGED = "metabolism:onPlayerDamaged";
 }

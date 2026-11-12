@@ -1,6 +1,6 @@
 ﻿namespace metabolism.Server.Domain
 {
-    public enum GaugeDisplayType
+    public enum GaugeDisplayTypeEnum
     {
         PERMANENT,
         HIDDEN

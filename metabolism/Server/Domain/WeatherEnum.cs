@@ -1,6 +1,6 @@
 ﻿namespace metabolism.Server.Domain
 {
-    public enum Weather
+    public enum WeatherEnum
     {
         EXTRASUNNY, 
         CLEAR, 

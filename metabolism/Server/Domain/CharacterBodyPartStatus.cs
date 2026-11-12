@@ -6,7 +6,7 @@ namespace metabolism.Server.Domain
     {
         public Guid Id { get; set; }
         public Character Character { get; set; }
-        public BodyPart BodyPart { get; set; }
+        public BodyPartDefinition BodyPart { get; set; }
         public float Health { get; set; }
 
 
