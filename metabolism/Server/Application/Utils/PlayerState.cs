@@ -1,11 +1,9 @@
 ﻿using CitizenFX.Core;
 using metabolism.Server.Domain;
 using metabolism.Shared;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace metabolism.Server.Application
+namespace metabolism.Server.Application.Utils
 {
     public class PlayerState
     {

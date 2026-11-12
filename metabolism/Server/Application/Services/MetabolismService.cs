@@ -1,13 +1,13 @@
 ﻿using CitizenFX.Core;
 using metabolism.Server.Application.Abstractions;
+using metabolism.Server.Application.Utils;
 using metabolism.Server.Domain;
 using metabolism.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace metabolism.Server.Application
+namespace metabolism.Server.Application.Services
 {
     public class MetabolismService
     {

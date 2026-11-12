@@ -1,8 +1,8 @@
 ﻿using CitizenFX.Core;
-using metabolism.Server.Application;
+using metabolism.Server.Application.Services;
 using metabolism.Shared;
 
-namespace metabolism.Server.Handlers
+namespace metabolism.Server.Application.Handlers
 {
     public class PlayerEventsHandler
     {
