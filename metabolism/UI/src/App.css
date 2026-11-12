@@ -7,15 +7,16 @@
 #container {
     position: relative;
     height: 100vh;
+    overflow: hidden;
 }
 
-#main-gauge-container {
+#permanent-gauge-container {
     width: 300px;
     background-color: rgba(0, 0, 0, 0.048);
     padding: 10px;
 }
 
-#full-gauge-container {
+#hidden-gauge-container {
     width: 300px;
     background-color: rgba(0, 0, 0, 0.048);
     padding: 25px;

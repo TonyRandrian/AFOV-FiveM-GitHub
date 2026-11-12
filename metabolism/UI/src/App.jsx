@@ -28,7 +28,7 @@ function App() {
     <div id="container">
       {
         gauges && isAllHudVisible && (
-          <div id="main-gauge-container">
+          <div id="permanent-gauge-container">
             {
               gauges.Permanents.map(gauge => (
                 <Gauge
@@ -46,7 +46,7 @@ function App() {
 
       {
         gauges && isHudVisible && isAllHudVisible && (
-          <div id="full-gauge-container">
+          <div id="hidden-gauge-container">
             {
               gauges.Hiddens.map(gauge => (
                 <Gauge
