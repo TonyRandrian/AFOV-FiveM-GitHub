@@ -1,5 +1,6 @@
 ﻿using CitizenFX.Core;
 using metabolism.Server.Application.Abstractions;
+using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Application.Utils;
 using metabolism.Server.Domain;
 using metabolism.Shared;
@@ -11,16 +12,19 @@ namespace metabolism.Server.Application.Services
 {
     public class MetabolismService
     {
+        private readonly IReadOnlyList<BodyPartDefinition> _bodyPartDefinitions;
         private readonly IReadOnlyList<GaugeDefinition> _definitions;
         private readonly PlayerRegistry _registry;
         private readonly IClientNotifier _notifier;
 
 
         public MetabolismService(
+            IBodyPartConfigProvider bodyPartConfigProvider,
             IGaugeConfigProvider configProvider,
             PlayerRegistry registry,
             IClientNotifier notifier)
         {
+            _bodyPartDefinitions = bodyPartConfigProvider.LoadBodyParts();
             _definitions = configProvider.LoadGauges();
             _registry = registry;
             _notifier = notifier;
@@ -40,7 +44,11 @@ namespace metabolism.Server.Application.Services
                 .Select(definition => new CharacterGauge(definition))
                 .ToList();
 
-            _registry.Add(new PlayerState(player, character, gauges));
+            List<BodyPartCharacterStatus> bodyParts = _bodyPartDefinitions
+                .Select(def => new BodyPartCharacterStatus(def))
+                .ToList();
+
+            _registry.Add(new PlayerState(player, character, gauges, bodyParts));
             Debug.WriteLine($"[Metabolism] Player registered : {player.Name}");
         }
 

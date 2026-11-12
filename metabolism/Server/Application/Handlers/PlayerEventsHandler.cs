@@ -7,13 +7,13 @@ namespace metabolism.Server.Application.Handlers
     public class PlayerEventsHandler
     {
         private readonly MetabolismService _metabolism;
-        private readonly BoneService _bone;
+        private readonly BodyPartService _bodyPart;
 
 
-        public PlayerEventsHandler(MetabolismService metabolism, BoneService bone)
+        public PlayerEventsHandler(MetabolismService metabolism, BodyPartService bodyPart)
         {
             _metabolism = metabolism;
-            _bone = bone;
+            _bodyPart = bodyPart;
         }
 
         public void OnJoined([FromSource] Player player)
@@ -32,9 +32,9 @@ namespace metabolism.Server.Application.Handlers
             _metabolism.SetActivity(player.Handle, (PlayerActivity)(activity & allowed));
         }
 
-        public void OnPlayerDamaged([FromSource] Player player, int boneId)
+        public void OnPlayerDamaged([FromSource] Player player, int boneId, int damageAmount)
         {
-            CitizenFX.Core.Debug.WriteLine($"{player.Name} : {_bone.ToBodyPart(boneId)}");
+            _bodyPart.UpdateBodyPart(player.Handle, _bodyPart.BoneToBodyPart(boneId), damageAmount); 
         }
     }
 }

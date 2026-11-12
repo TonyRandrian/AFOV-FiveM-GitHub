@@ -1,0 +1,44 @@
+[
+    {
+        "Id": "00000000-0000-0000-0000-000000000001",
+        "BodyPart": "HEAD",
+        "MaxHealth": 100.0,
+        "HealthCriticalThreshold": 20.0,
+        "WeaponDamageMultiplier": 5.0
+    },
+    {
+        "Id": "00000000-0000-0000-0000-000000000002",
+        "BodyPart": "TORSO",
+        "MaxHealth": 100.0,
+        "HealthCriticalThreshold": 20.0,
+        "WeaponDamageMultiplier": 1.5
+    },
+    {
+        "Id": "00000000-0000-0000-0000-000000000003",
+        "BodyPart": "LEFT_ARM",
+        "MaxHealth": 100.0,
+        "HealthCriticalThreshold": 20.0,
+        "WeaponDamageMultiplier": 0.75
+    },
+    {
+        "Id": "00000000-0000-0000-0000-000000000004",
+        "BodyPart": "RIGHT_ARM",
+        "MaxHealth": 100.0,
+        "HealthCriticalThreshold": 20.0,
+        "WeaponDamageMultiplier": 0.75
+    },
+    {
+        "Id": "00000000-0000-0000-0000-000000000005",
+        "BodyPart": "LEFT_LEG",
+        "MaxHealth": 100.0,
+        "HealthCriticalThreshold": 20.0,
+        "WeaponDamageMultiplier": 0.75
+    },
+    {
+        "Id": "00000000-0000-0000-0000-000000000006",
+        "BodyPart": "RIGHT_LEG",
+        "MaxHealth": 100.0,
+        "HealthCriticalThreshold": 20.0,
+        "WeaponDamageMultiplier": 0.75
+    }
+]

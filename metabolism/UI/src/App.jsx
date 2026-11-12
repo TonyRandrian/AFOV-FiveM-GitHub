@@ -6,6 +6,7 @@ function App() {
   const [isHudVisible, setHudVisible] = useState(false);
   const [isAllHudVisible, setAllHudVisible] = useState(true);
   const [gauges, setGauges] = useState(null);
+  const [bodyParts, setBodyParts] = useState(null);
 
   useEffect(() => {
     const handler = (event) => {
@@ -17,6 +18,9 @@ function App() {
       }
       else if (event.data.action === "setAllHudVisible") {
         setAllHudVisible(event.data.value);
+      }
+      else if (event.data.action === "updateBodyParts") {
+        setBodyParts(event.data.value);
       }
     };
 
@@ -38,6 +42,21 @@ function App() {
                   value={gauge.Value}
                   maxValue={gauge.Max}
                 />
+              ))
+            }
+          </div>
+        )
+      }
+
+      {
+        bodyParts && isHudVisible && isAllHudVisible && (
+          <div id="body-part-container" style={{ display: "flex", flexDirection: "column", color: "red"}}>
+            {
+              bodyParts.map(bodyPart => (
+                <div>
+                  <div>{bodyPart.BodyPart}</div>
+                  <div>{bodyPart.Health}</div>
+                </div>
               ))
             }
           </div>

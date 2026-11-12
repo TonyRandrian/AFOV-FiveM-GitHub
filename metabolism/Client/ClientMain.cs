@@ -20,6 +20,13 @@ namespace metabolism.Client
                 new Action<string>(OnStateUpdated);
             EventHandlers[Events.GAME_EVENT_TRIGGERED] +=
                 new Action<string, List<object>>(OnGameEventTriggered);
+            EventHandlers[Events.UPDATE_BODY_PART] += 
+                new Action<string>(OnBodyPartUpdated);
+        }
+
+        private void OnBodyPartUpdated(string bodyPartJson)
+        {
+            SendNuiMessage("{\"action\":\"updateBodyPart\", \"value\":" + bodyPartJson + "}");
         }
 
         private void OnStateUpdated(string gaugesJson)
@@ -40,10 +47,12 @@ namespace metabolism.Client
                         int boneId = 0;
                         bool success = GetPedLastDamageBone(victimHandle, ref boneId);
 
+                        int damageRaw = Convert.ToInt32(args[2]);
+                        float damageAmount = BitConverter.ToSingle(BitConverter.GetBytes(damageRaw), 0);
+
                         if (success && boneId != 0)
                         {
-                            Debug.WriteLine($"Damage : {boneId}");
-                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId);
+                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount);
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-﻿using metabolism.Server.Application.Abstractions;
+﻿using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Application.Utils;
 using metabolism.Server.Domain;
 using metabolism.Shared.DTOs;
@@ -44,6 +44,23 @@ namespace metabolism.Server.Infrastructure.Network
 
             string responseJson = JsonConvert.SerializeObject(response);
             state.Player.TriggerEvent(Events.UPDATE_STATE, responseJson);
+        }
+        
+        public void SendBodyParts(PlayerState state)
+        {
+            List<object> response = new List<object>();
+
+            foreach (BodyPartCharacterStatus bodyPart in state.BodyPartsStatus)
+            {
+                response.Add(new
+                {
+                    BodyPart = bodyPart.BodyPart.ToString(),
+                    bodyPart.Health
+                });
+            }
+
+            string responseJson = JsonConvert.SerializeObject(response);
+            state.Player.TriggerEvent(Events.UPDATE_BODY_PART, responseJson);
         }
     }
 }

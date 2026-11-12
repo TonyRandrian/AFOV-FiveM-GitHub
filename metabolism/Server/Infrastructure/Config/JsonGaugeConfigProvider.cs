@@ -1,12 +1,12 @@
 ﻿using metabolism.Server.Application.Abstractions;
 using metabolism.Server.Domain;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using static CitizenFX.Core.Native.API;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using static CitizenFX.Core.Native.API;
 
 namespace metabolism.Server.Infrastructure.Config
 {
