@@ -1,0 +1,14 @@
+﻿public enum DamageSource
+{
+    UNKNOWN,
+    FALL,
+    VEHICLE_COLLISION,
+    PUNCH_UNARMED,
+    MELEE_WEAPON,
+    FIREARM,
+    EXPLOSION,
+    FIRE,
+    DROWNING,
+    ELECTRIC,
+    ENVIRONMENT
+}
