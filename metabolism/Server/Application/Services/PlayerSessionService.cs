@@ -34,8 +34,8 @@ namespace metabolism.Server.Application.Services
                 IsOnline = true
             };
 
-            List<CharacterGauge> gauges = _gaugeDefinitions
-                .Select(definition => new CharacterGauge(definition))
+            List<CharacterGaugeStatus> gauges = _gaugeDefinitions
+                .Select(definition => new CharacterGaugeStatus(definition))
                 .ToList();
 
             List<BodyPartCharacterStatus> bodyParts = _bodyPartDefinitions

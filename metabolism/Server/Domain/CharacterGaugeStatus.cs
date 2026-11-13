@@ -2,7 +2,7 @@
 
 namespace metabolism.Server.Domain
 {
-    public class CharacterGauge
+    public class CharacterGaugeStatus
     {
         public Guid Id { get; set; }
         public GaugeDefinition Definition { get; }
@@ -12,7 +12,7 @@ namespace metabolism.Server.Domain
         public float RegenPerSecond { get; }
 
 
-        public CharacterGauge(GaugeDefinition def)
+        public CharacterGaugeStatus(GaugeDefinition def)
         {
             Definition = def;
             Max = def.DefaultMaxValue;

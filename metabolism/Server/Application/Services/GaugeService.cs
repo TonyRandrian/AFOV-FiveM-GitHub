@@ -47,7 +47,7 @@ namespace metabolism.Server.Application.Services
 
         public static void UpdateGauges(PlayerState state, float deltaSeconds)
         {
-            foreach (CharacterGauge gauge in state.Gauges)
+            foreach (CharacterGaugeStatus gauge in state.Gauges)
             {
                 GaugeVariationCondition condition = gauge.Definition.VariationCondition;
 

@@ -14,7 +14,7 @@ namespace metabolism.Server.Infrastructure.Network
             List<GaugeStateDto> permanents = new List<GaugeStateDto>();
             List<GaugeStateDto> hiddens = new List<GaugeStateDto>();
 
-            foreach (CharacterGauge gauge in state.Gauges)
+            foreach (CharacterGaugeStatus gauge in state.Gauges)
             {
                 if (gauge.Definition.DisplayType == GaugeDisplayTypeEnum.PERMANENT)
                 {
