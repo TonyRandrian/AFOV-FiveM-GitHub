@@ -1,4 +1,4 @@
-﻿using metabolism.Server.Application.Abstractions;
+﻿using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Domain;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
