@@ -50,7 +50,7 @@ function App() {
 
       {
         bodyParts && isHudVisible && isAllHudVisible && (
-          <div id="body-part-container" style={{ display: "flex", flexDirection: "column", color: "red"}}>
+          <div id="body-part-container" style={{ display: "flex", flexDirection: "column", color: "red" }}>
             {
               bodyParts.map(bodyPart => (
                 <div>
@@ -68,12 +68,19 @@ function App() {
           <div id="hidden-gauge-container">
             {
               gauges.Hiddens.map(gauge => (
-                <Gauge
-                  key={gauge.Name}
-                  label={gauge.Name}
-                  color="rgb(128, 126, 126)"
-                  value={gauge.Value}
-                  maxValue={gauge.Max} />
+                
+                gauge.Name !== "Temperature" ?
+                  <Gauge
+                    key={gauge.Name}
+                    label={gauge.Name}
+                    color="rgb(128, 126, 126)"
+                    value={gauge.Value}
+                    maxValue={gauge.Max} />
+                  :
+                  <div>
+                    <span>{gauge.Name}</span> : 
+                    <span> {gauge.Value}</span>
+                  </div>
               ))
             }
           </div>

@@ -1,65 +1,24 @@
-﻿using CitizenFX.Core;
-using metabolism.Server.Application.Interfaces;
+﻿using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Application.Utils;
 using metabolism.Server.Domain;
 using metabolism.Shared;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 
 namespace metabolism.Server.Application.Services
 {
-    public class MetabolismService
+    public class GaugeService
     {
-        private readonly IReadOnlyList<BodyPartDefinition> _bodyPartDefinitions;
-        private readonly IReadOnlyList<GaugeDefinition> _definitions;
         private readonly PlayerRegistry _registry;
         private readonly IClientNotifier _notifier;
 
 
-        public MetabolismService(
-            IBodyPartConfigProvider bodyPartConfigProvider,
-            IGaugeConfigProvider configProvider,
+        public GaugeService(
             PlayerRegistry registry,
             IClientNotifier notifier)
         {
-            _bodyPartDefinitions = bodyPartConfigProvider.LoadBodyParts();
-            _definitions = configProvider.LoadGauges();
             _registry = registry;
             _notifier = notifier;
-        }
-
-        public void RegisterPlayer(Player player)
-        {
-            Character character = new Character
-            {
-                License = player.Identifiers["license"],
-                Identifiers = player.Identifiers.ToList(),
-                Nickname = player.Name,
-                IsOnline = true
-            };
-
-            List<CharacterGauge> gauges = _definitions
-                .Select(definition => new CharacterGauge(definition))
-                .ToList();
-
-            List<BodyPartCharacterStatus> bodyParts = _bodyPartDefinitions
-                .Select(def => new BodyPartCharacterStatus(def))
-                .ToList();
-
-            _registry.Add(new PlayerState(player, character, gauges, bodyParts));
-            Debug.WriteLine($"[Metabolism] Player registered : {player.Name}");
-        }
-
-        public void UnregisterPlayer(string handle)
-        {
-            if (_registry.TryGet(handle, out PlayerState state))
-            {
-                state.Character.IsOnline = false;
-
-                _registry.Remove(handle);
-                Debug.WriteLine($"[Metabolism] Player unregistered : {state.Character.Nickname}");
-            }
         }
 
         public void SetActivity(string handle, PlayerActivity activity)
@@ -86,7 +45,7 @@ namespace metabolism.Server.Application.Services
             }
         }
 
-        private static void UpdateGauges(PlayerState state, float deltaSeconds)
+        public static void UpdateGauges(PlayerState state, float deltaSeconds)
         {
             foreach (CharacterGauge gauge in state.Gauges)
             {

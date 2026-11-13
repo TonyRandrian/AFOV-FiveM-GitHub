@@ -101,8 +101,8 @@
     "VariationCondition": "CUSTOM",
     "UpperCriticalThreshold": 39.0,
     "LowerCriticalThreshold": 35.0,
-    "DefaultMaxValue": 45.0,
-    "DefaultMinValue": 30.0,
+    "DefaultMaxValue": 39.0,
+    "DefaultMinValue": 34.0,
     "DefaultVariationRegen": 0.0,
     "DefaultVariationDrain": 0.0,
     "DisplayType": "Hidden"

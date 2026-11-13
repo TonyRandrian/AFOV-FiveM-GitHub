@@ -1,5 +1,6 @@
 ﻿using CitizenFX.Core;
 using metabolism.Server.Application.Handlers;
+using metabolism.Server.Application.Mappers;
 using metabolism.Server.Application.Services;
 using metabolism.Server.Application.Utils;
 using metabolism.Server.Infrastructure.Config;
@@ -12,21 +13,24 @@ namespace metabolism.Server
 {
     public class ServerMain : BaseScript
     {
-        private readonly MetabolismService _metabolism;
-        private readonly BodyPartService _bodyPart;
+        private readonly GaugeService _gauges;
 
 
         public ServerMain()
         {
-            JsonGaugeConfigProvider config = new JsonGaugeConfigProvider(GetCurrentResourceName());
-            JsonBodyPartConfigProvider bodyConfig = new JsonBodyPartConfigProvider(GetCurrentResourceName());
+            string resourceName = GetCurrentResourceName();
+
+            JsonGaugeConfigProvider gaugeConfig = new JsonGaugeConfigProvider(resourceName);
+            JsonBodyPartConfigProvider bodyPartConfig = new JsonBodyPartConfigProvider(resourceName);
             PlayerRegistry registry = new PlayerRegistry();
             ClientNotifier notifier = new ClientNotifier();
+            BoneBodyPartMapper boneMapper = new BoneBodyPartMapper();
 
-            _metabolism = new MetabolismService(bodyConfig, config, registry, notifier);
-            _bodyPart = new BodyPartService(registry, notifier);
+            PlayerSessionService sessions = new PlayerSessionService(gaugeConfig, bodyPartConfig, registry);
+            _gauges = new GaugeService(registry, notifier);
+            BodyPartService bodyParts = new BodyPartService(registry, notifier, boneMapper);
 
-            PlayerEventsHandler handler = new PlayerEventsHandler(_metabolism, _bodyPart);
+            PlayerEventsHandler handler = new PlayerEventsHandler(sessions, _gauges, bodyParts);
 
             EventHandlers[Events.PLAYER_JOINED] += new Action<Player>(handler.OnJoined);
             EventHandlers[Events.PLAYER_DROPPED] += new Action<Player>(handler.OnDropped);
@@ -40,7 +44,7 @@ namespace metabolism.Server
         private async Task OnTick()
         {
             await Delay(1000);
-            _metabolism.Update(1f);
+            _gauges.Update(1f);
         }
     }
 }
