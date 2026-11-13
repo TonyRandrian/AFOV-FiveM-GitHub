@@ -22,7 +22,7 @@ namespace metabolism.Server.Domain
 
         public void Heal(float damage)
         {
-            Health = Math.Min(100, Health + damage);
+            Health = Math.Min(BodyPart.MaxHealth, Health + damage);
         }
     }
 }
