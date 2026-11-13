@@ -54,7 +54,7 @@ namespace metabolism.Server.Infrastructure.Network
             {
                 response.Add(new
                 {
-                    BodyPart = bodyPart.BodyPart.ToString(),
+                    BodyPart = bodyPart.BodyPart.BodyPart.ToString(),
                     bodyPart.Health
                 });
             }

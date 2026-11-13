@@ -49,7 +49,7 @@ namespace metabolism.Server.Infrastructure.Config
                 throw new InvalidOperationException($"[Metabolism] Duplicate gauge name : {duplicate}");
             }
 
-            Debug.WriteLine($"[Metabolism] {gauges.Count} gauges loaded.");
+            CitizenFX.Core.Debug.WriteLine($"[Metabolism] {gauges.Count} gauges loaded.");
             return gauges;
         }
     }

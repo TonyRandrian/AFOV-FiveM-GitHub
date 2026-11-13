@@ -1,10 +1,10 @@
-﻿using metabolism.Server.Application.Interfaces;
+﻿using CitizenFX.Core;
+using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Domain;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using static CitizenFX.Core.Native.API;
 
 namespace metabolism.Server.Infrastructure.Config
@@ -37,7 +37,7 @@ namespace metabolism.Server.Infrastructure.Config
                 JsonConvert.DeserializeObject<List<BodyPartDefinition>>(json, settings)
                 ?? throw new InvalidOperationException($"[Metabolism] {_filePath} content not valid");
 
-            Debug.WriteLine($"[Metabolism] {bodyParts.Count} gauges loaded.");
+            CitizenFX.Core.Debug.WriteLine($"[Metabolism] {bodyParts.Count} body parts loaded.");
             return bodyParts;
         }
     }

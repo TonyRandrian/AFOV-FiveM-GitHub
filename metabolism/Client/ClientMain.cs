@@ -26,7 +26,7 @@ namespace metabolism.Client
 
         private void OnBodyPartUpdated(string bodyPartJson)
         {
-            SendNuiMessage("{\"action\":\"updateBodyPart\", \"value\":" + bodyPartJson + "}");
+            SendNuiMessage("{\"action\":\"updateBodyParts\", \"value\":" + bodyPartJson + "}");
         }
 
         private void OnStateUpdated(string gaugesJson)
