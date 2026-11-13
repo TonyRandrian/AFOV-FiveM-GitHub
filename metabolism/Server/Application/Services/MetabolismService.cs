@@ -1,5 +1,4 @@
 ﻿using CitizenFX.Core;
-using metabolism.Server.Application.Abstractions;
 using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Application.Utils;
 using metabolism.Server.Domain;
