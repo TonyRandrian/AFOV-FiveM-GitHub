@@ -1,7 +1,6 @@
 ﻿using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Application.Utils;
 using metabolism.Server.Domain;
-using System.Collections.Generic;
 
 namespace metabolism.Server.Application.Services
 {
@@ -21,19 +20,16 @@ namespace metabolism.Server.Application.Services
 
         public void UpdateBodyPart(string handle, BodyPartEnum bodyPart, float damage)
         {
-            foreach (PlayerState state in _registry.Snapshot())
+            if (_registry.TryGet(handle, out PlayerState state))
             {
-                if (state.Player.Handle == handle)
+                foreach (BodyPartCharacterStatus bdd in state.BodyPartsStatus)
                 {
-                    foreach (BodyPartCharacterStatus bdd in state.BodyPartsStatus)
+                    if (bdd.BodyPart.BodyPart == bodyPart)
                     {
-                        if (bdd.BodyPart.BodyPart == bodyPart)
-                        {
-                            bdd.Damage(damage);
-                            _notifier.SendBodyParts(state);
+                        bdd.Damage(damage);
+                        _notifier.SendBodyParts(state);
 
-                            return;
-                        }
+                        return;
                     }
                 }
             }
