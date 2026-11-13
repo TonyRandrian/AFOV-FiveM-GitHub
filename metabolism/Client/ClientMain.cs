@@ -12,7 +12,7 @@ namespace metabolism.Client
         private bool _isHudVisible = false;
         private bool _isAllHudVisible = true;
         private PlayerActivity _lastActivity = PlayerActivity.None;
-
+        private readonly Random _random = new Random();
 
         public ClientMain()
         {
@@ -22,6 +22,11 @@ namespace metabolism.Client
                 new Action<string, List<object>>(OnGameEventTriggered);
             EventHandlers[Events.UPDATE_BODY_PART] += 
                 new Action<string>(OnBodyPartUpdated);
+
+            RegisterCommand("tp", new Action(TeleportRandomly), false);
+
+            // Commande pour remplir la barre de vie
+            RegisterCommand("hp", new Action(FillHealth), false);
         }
 
         private void OnBodyPartUpdated(string bodyPartJson)
@@ -116,6 +121,47 @@ namespace metabolism.Client
             _isAllHudVisible = visible;
             string json = "{\"action\":\"setAllHudVisible\",\"value\":" + (visible ? "true" : "false") + "}";
             SendNuiMessage(json);
+        }
+
+        private void TeleportRandomly()
+        {
+            Vector3[] locations =
+            {
+            new Vector3(215.76f, -810.12f, 30.73f),
+            new Vector3(-1037.74f, -2737.82f, 20.17f),
+            new Vector3(1854.12f, 3686.45f, 34.27f),
+            new Vector3(-425.12f, 1123.45f, 325.85f),
+            new Vector3(1692.62f, 4823.10f, 42.06f)
+        };
+
+            int index = _random.Next(locations.Length);
+            Vector3 destination = locations[index];
+
+            int playerPed = PlayerPedId();
+
+            SetEntityCoords(
+                playerPed,
+                destination.X,
+                destination.Y,
+                destination.Z,
+                false,
+                false,
+                false,
+                false
+            );
+
+            Debug.WriteLine($"[Metabolism] Teleported to: {destination}");
+        }
+
+        private void FillHealth()
+        {
+            int playerPed = PlayerPedId();
+
+            int maxHealth = GetEntityMaxHealth(playerPed);
+
+            SetEntityHealth(playerPed, maxHealth);
+
+            Debug.WriteLine("[Metabolism] Health restored!");
         }
     }
 }
