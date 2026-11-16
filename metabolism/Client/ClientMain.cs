@@ -42,6 +42,7 @@ namespace metabolism.Client
 
         private void OnGameEventTriggered(string eventName, List<object> args)
         {
+            SetEntityInvincible(Game.PlayerPed.Handle, true);
             if (eventName == "CEventNetworkEntityDamage")
             {
                 int victimHandle = Convert.ToInt32(args[0]);
