@@ -23,7 +23,7 @@ namespace metabolism.Server.Application.Services
             _boneMapper = boneMapper;
         }
 
-        public void ApplyBoneDamage(string handle, int boneId, float damage)
+        public void ApplyBoneDamage(string handle, int boneId, float damage, DamageSource source)
         {
             UpdateBodyPart(handle, _boneMapper.ToBodyPart(boneId), damage);
             Debug.WriteLine($"{_boneMapper.ToBodyPart(boneId)} : {damage}");

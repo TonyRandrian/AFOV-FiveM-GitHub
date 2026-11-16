@@ -38,9 +38,9 @@ namespace metabolism.Server.Application.Handlers
             _gauges.SetActivity(player.Handle, (PlayerActivity)(activity & allowed));
         }
 
-        public void OnPlayerDamaged([FromSource] Player player, int boneId, int damageAmount)
+        public void OnPlayerDamaged([FromSource] Player player, int boneId, int damageAmount, DamageSource source)
         {
-            _bodyParts.ApplyBoneDamage(player.Handle, boneId, damageAmount); 
+            _bodyParts.ApplyBoneDamage(player.Handle, boneId, damageAmount, source); 
         }
     }
 }

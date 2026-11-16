@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using metabolism.Client.Services;
 using metabolism.Shared;
 using System;
 using System.Collections.Generic;
@@ -55,10 +56,11 @@ namespace metabolism.Client
 
                         int damageRaw = Convert.ToInt32(args[2]);
                         float damageAmount = BitConverter.ToSingle(BitConverter.GetBytes(damageRaw), 0);
+                        DamageSource source = DamageService.GetDamageSource(args);
 
                         if (success && boneId != 0)
                         {
-                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount);
+                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, source);
                         }
                     }
                 }

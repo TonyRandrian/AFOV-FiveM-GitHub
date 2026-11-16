@@ -4,7 +4,7 @@ using static CitizenFX.Core.Native.API;
 
 namespace metabolism.Client.Services
 {
-    public class DamageService
+    public static class DamageService
     {
         private static readonly HashSet<uint> FirearmGroups = new HashSet<uint>
         {
