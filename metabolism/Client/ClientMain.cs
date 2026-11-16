@@ -51,6 +51,7 @@ namespace metabolism.Client
                     {
                         int boneId = 0;
                         bool success = GetPedLastDamageBone(victimHandle, ref boneId);
+                        ClearPedLastDamageBone(victimHandle);
 
                         int damageRaw = Convert.ToInt32(args[2]);
                         float damageAmount = BitConverter.ToSingle(BitConverter.GetBytes(damageRaw), 0);

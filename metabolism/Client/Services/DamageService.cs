@@ -6,45 +6,65 @@ namespace metabolism.Client.Services
 {
     public class DamageService
     {
+        private static readonly HashSet<uint> FirearmGroups = new HashSet<uint>
+        {
+            Hash("GROUP_PISTOL"),
+            Hash("GROUP_SMG"),
+            Hash("GROUP_RIFLE"),
+            Hash("GROUP_MG"),
+            Hash("GROUP_SHOTGUN"),
+            Hash("GROUP_SNIPER"),
+            Hash("GROUP_HEAVY")
+        };
 
         public static DamageSource GetDamageSource(List<object> eventArgs)
         {
+            if (eventArgs == null || eventArgs.Count <= 7)
+                return DamageSource.UNKNOWN;
+
             int attackerHandler = Convert.ToInt32(eventArgs[1]);
             uint weaponHash = Convert.ToUInt32(eventArgs[7]);
 
-            DamageSource source = DamageSource.UNKNOWN;
+            if (weaponHash == Hash("WEAPON_FALL"))
+                return DamageSource.FALL;
 
-            if (attackerHandler == -1 || attackerHandler == 0)
-            {
-                if (weaponHash == (uint)GetHashKey("WEAPON_FALL"))
-                {
-                    source = DamageSource.FALL;
-                }
-                else
-                {
-                    source = DamageSource.ENVIRONMENT;
-                }
-            }
-            else
-            {
-                if (IsEntityAVehicle(attackerHandler))
-                {
-                    source = DamageSource.VEHICLE_COLLISION;
-                }
-                else if (IsEntityAPed(attackerHandler))
-                {
-                    if (weaponHash == (uint)GetHashKey("WEAPON_UNARMED"))
-                    {
-                        source = DamageSource.PUNCH_UNARMED;
-                    }
-                    else
-                    {
-                        source = DamageSource.FIREARM;
-                    }
-                }
-            }
+            if (weaponHash == Hash("WEAPON_RUN_OVER_BY_CAR")
+                || weaponHash == Hash("WEAPON_RAMMED_BY_CAR"))
+                return DamageSource.VEHICLE_COLLISION;
 
-            return source;
+            if (weaponHash == Hash("WEAPON_EXPLOSION"))
+                return DamageSource.EXPLOSION;
+
+            if (weaponHash == Hash("WEAPON_FIRE"))
+                return DamageSource.FIRE;
+
+            if (weaponHash == Hash("WEAPON_DROWNING"))
+                return DamageSource.DROWNING;
+
+            uint group = (uint)GetWeapontypeGroup(weaponHash);
+            if (group == Hash("GROUP_MELEE"))
+                return DamageSource.MELEE_WEAPON;
+
+            if (group == Hash("GROUP_UNARMED"))
+                return DamageSource.PUNCH_UNARMED;
+
+            if (FirearmGroups.Contains(group))
+                return DamageSource.FIREARM;
+
+            if (attackerHandler > 0 && DoesEntityExist(attackerHandler)
+                && IsEntityAVehicle(attackerHandler))
+                return DamageSource.VEHICLE_COLLISION;
+
+            if (attackerHandler <= 0)
+                return DamageSource.ENVIRONMENT;
+            
+
+            return DamageSource.UNKNOWN;
+        }
+
+        private static uint Hash(string name)
+        {
+            return unchecked((uint)GetHashKey(name));
         }
     }
 }
