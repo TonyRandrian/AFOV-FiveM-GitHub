@@ -1,15 +1,13 @@
-﻿using CitizenFX.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using static CitizenFX.Core.Native.API;
-
 
 namespace metabolism.Client.Services
 {
     public class DamageService
     {
 
-        public static void GetDamageSource(List<object> eventArgs)
+        public static DamageSource GetDamageSource(List<object> eventArgs)
         {
             int attackerHandler = Convert.ToInt32(eventArgs[1]);
             uint weaponHash = Convert.ToUInt32(eventArgs[7]);
@@ -39,17 +37,14 @@ namespace metabolism.Client.Services
                     {
                         source = DamageSource.PUNCH_UNARMED;
                     }
-                    else if (Weapon)
-                    {
-
-                    }
                     else
                     {
-                        source = DamageSource.FIREARM
+                        source = DamageSource.FIREARM;
                     }
                 }
             }
 
+            return source;
         }
     }
 }
