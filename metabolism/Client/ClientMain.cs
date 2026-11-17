@@ -3,14 +3,17 @@ using metabolism.Client.Services;
 using metabolism.Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 
 namespace metabolism.Client
 {
+    
     public class ClientMain : BaseScript
     {
+        int lastIndex = 0;
         private bool _isHudVisible = false;
         private bool _isAllHudVisible = true;
         private PlayerActivity _lastActivity = PlayerActivity.None;
@@ -162,9 +165,8 @@ namespace metabolism.Client
             new Vector3(1692.62f, 4823.10f, 42.06f)
         };
 
-            int index = _random.Next(locations.Length);
-            Vector3 destination = locations[index];
-
+            Vector3 destination = locations[lastIndex];
+            lastIndex = (lastIndex + 1) % locations.Length;
             int playerPed = PlayerPedId();
 
             SetEntityCoords(

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CitizenFX.Core;
+using System;
 using System.Collections.Generic;
 using static CitizenFX.Core.Native.API;
 
@@ -22,8 +23,10 @@ namespace metabolism.Client.Services
             if (eventArgs == null || eventArgs.Count <= 7)
                 return DamageSource.UNKNOWN;
 
-            int attackerHandler = Convert.ToInt32(eventArgs[1]);
-            uint weaponHash = Convert.ToUInt32(eventArgs[7]);
+            int attackerHandler = Convert.ToInt32(eventArgs[0]);
+            uint weaponHash = unchecked(
+                                (uint)Convert.ToInt32(eventArgs[6])
+                              );
 
             if (weaponHash == Hash("WEAPON_FALL"))
                 return DamageSource.FALL;
@@ -35,7 +38,6 @@ namespace metabolism.Client.Services
             if (weaponHash == Hash("WEAPON_EXPLOSION"))
                 return DamageSource.EXPLOSION;
 
-            // Détection du feu, du Molotov ou de tout dégât classé comme "Fire" (type 5) par le moteur
             if (weaponHash == Hash("WEAPON_FIRE")
                 || weaponHash == Hash("WEAPON_MOLOTOV")
                 || GetWeaponDamageType(weaponHash) == 5)
