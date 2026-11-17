@@ -128,6 +128,7 @@ namespace metabolism.Client
             {
                 current |= PlayerActivity.Underwater;
             }
+
             if (IsPedSprinting(ped))
             {
                 current |= PlayerActivity.Sprinting;

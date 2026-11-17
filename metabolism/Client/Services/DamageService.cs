@@ -23,10 +23,16 @@ namespace metabolism.Client.Services
             if (eventArgs == null || eventArgs.Count <= 7)
                 return DamageSource.UNKNOWN;
 
-            int attackerHandler = Convert.ToInt32(eventArgs[0]);
+            int victimPed = Convert.ToInt32(eventArgs[0]);
+            int attackerPed = Convert.ToInt32(eventArgs[1]);
             uint weaponHash = unchecked(
                                 (uint)Convert.ToInt32(eventArgs[6])
                               );
+
+            if (weaponHash == Hash("WEAPON_DROWNING")
+                || weaponHash == Hash("WEAPON_DROWNING_IN_VEHICLE")
+                || IsPlayerDrowning(victimPed))
+                return DamageSource.DROWNING;
 
             if (weaponHash == Hash("WEAPON_FALL"))
                 return DamageSource.FALL;
@@ -39,12 +45,8 @@ namespace metabolism.Client.Services
                 return DamageSource.EXPLOSION;
 
             if (weaponHash == Hash("WEAPON_FIRE")
-                || weaponHash == Hash("WEAPON_MOLOTOV")
-                || GetWeaponDamageType(weaponHash) == 5)
+                || weaponHash == Hash("WEAPON_MOLOTOV"))
                 return DamageSource.FIRE;
-
-            if (weaponHash == Hash("WEAPON_DROWNING"))
-                return DamageSource.DROWNING;
 
             uint group = (uint)GetWeapontypeGroup(weaponHash);
             if (group == Hash("GROUP_MELEE"))
@@ -56,11 +58,11 @@ namespace metabolism.Client.Services
             if (FirearmGroups.Contains(group))
                 return DamageSource.FIREARM;
 
-            if (attackerHandler > 0 && DoesEntityExist(attackerHandler)
-                && IsEntityAVehicle(attackerHandler))
+            if (attackerPed > 0 && DoesEntityExist(attackerPed)
+                && IsEntityAVehicle(attackerPed))
                 return DamageSource.VEHICLE_COLLISION;
 
-            if (attackerHandler <= 0)
+            if (attackerPed <= 0)
                 return DamageSource.ENVIRONMENT;
 
             return DamageSource.UNKNOWN;
@@ -69,6 +71,31 @@ namespace metabolism.Client.Services
         private static uint Hash(string name)
         {
             return unchecked((uint)GetHashKey(name));
+        }
+
+        private static bool IsPlayerDrowning(int ped)
+        {
+            Debug.WriteLine("Test drowning");
+            int playerId = NetworkGetPlayerIndex(ped);
+            float airRemaining = GetPlayerUnderwaterTimeRemaining(playerId);
+
+            if (airRemaining > 0.0f)
+                return false;
+
+            if (IsPedSwimmingUnderWater(ped))
+                return true;
+
+            // vehicule immergé
+            if (IsPedInAnyVehicle(ped, false))
+            {
+                int vehicle = GetVehiclePedIsIn(ped, false);
+                if (IsEntityInWater(ped) && GetEntitySubmergedLevel(vehicle) > 0.7f)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
