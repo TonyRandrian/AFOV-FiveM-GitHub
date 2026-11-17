@@ -1,0 +1,26 @@
+[
+    { "Source": "FIREARM", "UseBone": true, "DamageMultiplier": 1.0, "Zones": [] },
+    { "Source": "MELEE_WEAPON", "UseBone": true, "DamageMultiplier": 1.0, "Zones": [] },
+    { "Source": "PUNCH_UNARMED", "UseBone": true, "DamageMultiplier": 1.0, "Zones": [] },
+    { "Source": "VEHICLE_COLLISION", "UseBone": true, "DamageMultiplier": 1.0, "Zones": [] },
+    {
+        "Source": "FALL",
+        "UseBone": false,
+        "DamageMultiplier": 1.0,
+        "Zones": [
+            { "BodyPart": "LEFT_LEG", "Share": 0.5 },
+            { "BodyPart": "RIGHT_LEG", "Share": 0.5 }
+        ]
+    },
+    {
+        "Source": "EXPLOSION",
+        "UseBone": false,
+        "DamageMultiplier": 1.0,
+        "Zones": [
+            { "BodyPart": "TORSO", "Share": 0.4 },
+            { "BodyPart": "LEFT_ARM", "Share": 0.2 },
+            { "BodyPart": "RIGHT_ARM", "Share": 0.2 },
+            { "BodyPart": "HEAD", "Share": 0.2 }
+        ]
+    }
+]

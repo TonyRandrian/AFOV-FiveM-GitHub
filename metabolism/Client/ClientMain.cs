@@ -22,7 +22,7 @@ namespace metabolism.Client
                 new Action<string>(OnStateUpdated);
             EventHandlers[Events.GAME_EVENT_TRIGGERED] +=
                 new Action<string, List<object>>(OnGameEventTriggered);
-            EventHandlers[Events.UPDATE_BODY_PART] += 
+            EventHandlers[Events.UPDATE_BODY_PART] +=
                 new Action<string>(OnBodyPartUpdated);
             EventHandlers["playerSpawned"] +=
                 new Action<IDictionary<string, object>>(OnPlayerSpawned);
@@ -74,14 +74,14 @@ namespace metabolism.Client
                     if (victimHandle == Game.PlayerPed.Handle)
                     {
                         int boneId = 0;
-                        bool success = GetPedLastDamageBone(victimHandle, ref boneId);
+                        GetPedLastDamageBone(victimHandle, ref boneId);
                         ClearPedLastDamageBone(victimHandle);
 
                         int damageRaw = Convert.ToInt32(args[2]);
                         float damageAmount = BitConverter.ToSingle(BitConverter.GetBytes(damageRaw), 0);
                         DamageSource source = DamageService.GetDamageSource(args);
-                        Debug.WriteLine($"Source : {source}");
-                        if (success && boneId != 0)
+
+                        if (damageAmount > 0)
                         {
                             TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, source);
                             Debug.WriteLine($"{boneId} : {damageAmount}");
@@ -94,16 +94,16 @@ namespace metabolism.Client
         [Tick]
         public Task OnHudTick()
         {
-            bool shouldShow = !(IsPauseMenuActive() 
-                || IsWarningMessageActive() 
-                || IsCutsceneActive() 
+            bool shouldShow = !(IsPauseMenuActive()
+                || IsWarningMessageActive()
+                || IsCutsceneActive()
                 || GetIsLoadingScreenActive());
 
             if (shouldShow != _isAllHudVisible)
             {
                 SetAllHudVisible(shouldShow);
             }
-            
+
             if (IsControlJustPressed(0, 311))
             {
                 SetHudVisible(!_isHudVisible);

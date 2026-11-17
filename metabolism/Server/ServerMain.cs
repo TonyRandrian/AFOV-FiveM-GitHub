@@ -22,20 +22,21 @@ namespace metabolism.Server
 
             JsonGaugeConfigProvider gaugeConfig = new JsonGaugeConfigProvider(resourceName);
             JsonBodyPartConfigProvider bodyPartConfig = new JsonBodyPartConfigProvider(resourceName);
+            JsonDamageSourceConfigProvider damageSourceConfig = new JsonDamageSourceConfigProvider(resourceName);
             PlayerRegistry registry = new PlayerRegistry();
             ClientNotifier notifier = new ClientNotifier();
             BoneBodyPartMapper boneMapper = new BoneBodyPartMapper();
 
             PlayerSessionService sessions = new PlayerSessionService(gaugeConfig, bodyPartConfig, registry);
             _gauges = new GaugeService(registry, notifier);
-            BodyPartService bodyParts = new BodyPartService(registry, notifier, boneMapper);
+            BodyPartService bodyParts = new BodyPartService(registry, notifier, boneMapper, damageSourceConfig);
 
             PlayerEventsHandler handler = new PlayerEventsHandler(sessions, _gauges, bodyParts);
 
             EventHandlers[Events.PLAYER_JOINED] += new Action<Player>(handler.OnJoined);
             EventHandlers[Events.PLAYER_DROPPED] += new Action<Player>(handler.OnDropped);
             EventHandlers[Events.PLAYER_ACTIVITY_CHANGED] += new Action<Player, int>(handler.OnActivityChanged);
-            EventHandlers[Events.PLAYER_DAMAGED] += new Action<Player, int, int, DamageSource>(handler.OnPlayerDamaged);
+            EventHandlers[Events.PLAYER_DAMAGED] += new Action<Player, int, float, int>(handler.OnPlayerDamaged);
 
             Debug.WriteLine("[Metabolism] Script started");
         }
