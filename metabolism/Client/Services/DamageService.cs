@@ -35,7 +35,10 @@ namespace metabolism.Client.Services
             if (weaponHash == Hash("WEAPON_EXPLOSION"))
                 return DamageSource.EXPLOSION;
 
-            if (weaponHash == Hash("WEAPON_FIRE"))
+            // Détection du feu, du Molotov ou de tout dégât classé comme "Fire" (type 5) par le moteur
+            if (weaponHash == Hash("WEAPON_FIRE")
+                || weaponHash == Hash("WEAPON_MOLOTOV")
+                || GetWeaponDamageType(weaponHash) == 5)
                 return DamageSource.FIRE;
 
             if (weaponHash == Hash("WEAPON_DROWNING"))
@@ -57,7 +60,6 @@ namespace metabolism.Client.Services
 
             if (attackerHandler <= 0)
                 return DamageSource.ENVIRONMENT;
-            
 
             return DamageSource.UNKNOWN;
         }

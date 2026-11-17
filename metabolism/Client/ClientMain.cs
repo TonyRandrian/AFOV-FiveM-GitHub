@@ -27,10 +27,25 @@ namespace metabolism.Client
             EventHandlers["playerSpawned"] +=
                 new Action<IDictionary<string, object>>(OnPlayerSpawned);
 
+
             RegisterCommand("tp", new Action(TeleportRandomly), false);
 
             // Commande pour remplir la barre de vie
             RegisterCommand("hp", new Action(FillHealth), false);
+
+            RegisterCommand("weapon", new Action(() =>
+            {
+                int ped = Game.PlayerPed.Handle;
+
+                if (DoesEntityExist(ped))
+                {
+                    // Hash de l'arme (ici un Molotov pour tester le feu, modifiable selon vos envies)
+                    uint weaponHash = (uint)GetHashKey("WEAPON_MOLOTOV");
+
+                    // Donner l'arme au joueur avec 10 munitions
+                    GiveWeaponToPed(ped, weaponHash, 10, false, false);
+                }
+            }), false);
         }
 
         private async void OnPlayerSpawned(IDictionary<string, object> infos)
@@ -65,7 +80,7 @@ namespace metabolism.Client
                         int damageRaw = Convert.ToInt32(args[2]);
                         float damageAmount = BitConverter.ToSingle(BitConverter.GetBytes(damageRaw), 0);
                         DamageSource source = DamageService.GetDamageSource(args);
-
+                        Debug.WriteLine($"Source : {source}");
                         if (success && boneId != 0)
                         {
                             TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, source);
