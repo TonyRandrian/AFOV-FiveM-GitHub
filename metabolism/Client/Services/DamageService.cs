@@ -75,8 +75,11 @@ namespace metabolism.Client.Services
 
         private static bool IsPlayerDrowning(int ped)
         {
-            Debug.WriteLine("Test drowning");
-            int playerId = NetworkGetPlayerIndex(ped);
+            int playerId = NetworkGetPlayerIndexFromPed(ped);
+
+            if (playerId == -1)
+                return false;
+
             float airRemaining = GetPlayerUnderwaterTimeRemaining(playerId);
 
             if (airRemaining > 0.0f)
@@ -85,14 +88,13 @@ namespace metabolism.Client.Services
             if (IsPedSwimmingUnderWater(ped))
                 return true;
 
-            // vehicule immergé
+            // Véhicule immergé
             if (IsPedInAnyVehicle(ped, false))
             {
                 int vehicle = GetVehiclePedIsIn(ped, false);
-                if (IsEntityInWater(ped) && GetEntitySubmergedLevel(vehicle) > 0.7f)
-                {
+
+                if (GetEntitySubmergedLevel(vehicle) > 0.7f)
                     return true;
-                }
             }
 
             return false;
