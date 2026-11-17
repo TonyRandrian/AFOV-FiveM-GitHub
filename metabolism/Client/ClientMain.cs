@@ -3,6 +3,7 @@ using metabolism.Client.Services;
 using metabolism.Shared;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 
@@ -23,11 +24,18 @@ namespace metabolism.Client
                 new Action<string, List<object>>(OnGameEventTriggered);
             EventHandlers[Events.UPDATE_BODY_PART] += 
                 new Action<string>(OnBodyPartUpdated);
+            EventHandlers["playerSpawned"] +=
+                new Action<IDictionary<string, object>>(OnPlayerSpawned);
 
             RegisterCommand("tp", new Action(TeleportRandomly), false);
 
             // Commande pour remplir la barre de vie
             RegisterCommand("hp", new Action(FillHealth), false);
+        }
+
+        private async void OnPlayerSpawned(IDictionary<string, object> infos)
+        {
+            await Delay(500);
         }
 
         private void OnBodyPartUpdated(string bodyPartJson)
@@ -42,7 +50,6 @@ namespace metabolism.Client
 
         private void OnGameEventTriggered(string eventName, List<object> args)
         {
-            SetEntityInvincible(Game.PlayerPed.Handle, true);
             if (eventName == "CEventNetworkEntityDamage")
             {
                 int victimHandle = Convert.ToInt32(args[0]);
@@ -62,6 +69,7 @@ namespace metabolism.Client
                         if (success && boneId != 0)
                         {
                             TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, source);
+                            Debug.WriteLine($"{boneId} : {damageAmount}");
                         }
                     }
                 }
@@ -92,7 +100,7 @@ namespace metabolism.Client
         [Tick]
         public async Task OnActivityTick()
         {
-            await Delay(250);
+            await Delay(100);
 
             int ped = PlayerPedId();
             PlayerActivity current = PlayerActivity.None;
