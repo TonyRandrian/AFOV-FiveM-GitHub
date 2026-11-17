@@ -80,10 +80,11 @@ namespace metabolism.Client
                         int damageRaw = Convert.ToInt32(args[2]);
                         float damageAmount = BitConverter.ToSingle(BitConverter.GetBytes(damageRaw), 0);
                         DamageSource source = DamageService.GetDamageSource(args);
+                        Debug.WriteLine($"[Metabolism] args.Count={args.Count} | source calculé côté client={source}");
 
                         if (damageAmount > 0)
                         {
-                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, source);
+                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, (int) source);
                             Debug.WriteLine($"{boneId} : {damageAmount}");
                         }
                     }
