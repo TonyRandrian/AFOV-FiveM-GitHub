@@ -89,6 +89,8 @@ namespace metabolism.Client
                         {
                             TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, (int) source);
                             Debug.WriteLine($"{boneId} : {damageAmount}");
+                            ClearEntityLastDamageEntity(victimHandle);
+                            ClearEntityLastWeaponDamage(victimHandle);
                         }
                     }
                 }

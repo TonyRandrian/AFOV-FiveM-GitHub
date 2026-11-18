@@ -29,9 +29,12 @@ namespace metabolism.Client.Services
                                 (uint)Convert.ToInt32(eventArgs[6])
                               );
 
-            if (weaponHash == Hash("WEAPON_DROWNING")
+            Debug.WriteLine($"Victim : {victimPed}");
+            Debug.WriteLine($"Attacker : {attackerPed}");
+
+            if ((weaponHash == Hash("WEAPON_DROWNING")
                 || weaponHash == Hash("WEAPON_DROWNING_IN_VEHICLE")
-                || IsPlayerDrowning(victimPed))
+                || IsPlayerDrowning(victimPed)) && attackerPed == -1)
                 return DamageSource.DROWNING;
 
             if (weaponHash == Hash("WEAPON_FALL"))
