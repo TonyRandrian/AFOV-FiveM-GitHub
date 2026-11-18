@@ -37,6 +37,7 @@ namespace metabolism.Server
             EventHandlers[Events.PLAYER_DROPPED] += new Action<Player>(handler.OnDropped);
             EventHandlers[Events.PLAYER_ACTIVITY_CHANGED] += new Action<Player, int>(handler.OnActivityChanged);
             EventHandlers[Events.PLAYER_DAMAGED] += new Action<Player, int, float, int>(handler.OnPlayerDamaged);
+            EventHandlers[Events.PLAYER_RESPAWNED] += new Action<Player>(handler.OnPlayerRespawned);
 
             Debug.WriteLine("[Metabolism] Script started");
         }

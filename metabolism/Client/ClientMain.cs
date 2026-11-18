@@ -3,14 +3,12 @@ using metabolism.Client.Services;
 using metabolism.Shared;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 
 namespace metabolism.Client
 {
-    
+
     public class ClientMain : BaseScript
     {
         int lastIndex = 0;
@@ -29,7 +27,10 @@ namespace metabolism.Client
                 new Action<string>(OnBodyPartUpdated);
             EventHandlers["playerSpawned"] +=
                 new Action<IDictionary<string, object>>(OnPlayerSpawned);
-
+            EventHandlers[Events.PLAYER_DIED] +=
+                new Action(OnPlayerDied);
+            EventHandlers[Events.PLAYER_RESPAWNED] +=
+                new Action<IDictionary<string, object>>(OnPlayerSpawned);
 
             RegisterCommand("tp", new Action(TeleportRandomly), false);
 
@@ -51,9 +52,24 @@ namespace metabolism.Client
             }), false);
         }
 
+        private void OnPlayerDied()
+        {
+            int playerPed = Game.PlayerPed.Handle;
+            SetEntityHealth(playerPed, 0);
+            Debug.WriteLine("[Metabolism] Player died.");
+        }
+
         private async void OnPlayerSpawned(IDictionary<string, object> infos)
         {
             await Delay(500);
+
+            int ped = Game.PlayerPed.Handle;
+
+            SetEntityMaxHealth(ped, 10000);
+            SetEntityHealth(ped, 10000);
+            SetPedSuffersCriticalHits(ped, true);
+
+            TriggerServerEvent(Events.PLAYER_RESPAWNED);
         }
 
         private void OnBodyPartUpdated(string bodyPartJson)
@@ -76,6 +92,7 @@ namespace metabolism.Client
                 {
                     if (victimHandle == Game.PlayerPed.Handle)
                     {
+                        SetEntityHealth(victimHandle, 10000);
                         int boneId = 0;
                         GetPedLastDamageBone(victimHandle, ref boneId);
                         ClearPedLastDamageBone(victimHandle);
@@ -87,7 +104,7 @@ namespace metabolism.Client
 
                         if (damageAmount > 0)
                         {
-                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, (int) source);
+                            TriggerServerEvent(Events.PLAYER_DAMAGED, boneId, damageAmount, (int)source);
                             Debug.WriteLine($"{boneId} : {damageAmount}");
                             ClearEntityLastDamageEntity(victimHandle);
                             ClearEntityLastWeaponDamage(victimHandle);

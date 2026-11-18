@@ -10,6 +10,7 @@ namespace metabolism.Server.Application.Utils
         public string Handle { get; }
         public Player Player { get; }
         public Character Character { get; }
+        public CharacterHealthStatus Health { get; }
         public IReadOnlyList<CharacterGaugeStatus> Gauges { get; }
         public IReadOnlyList<BodyPartCharacterStatus> BodyPartsStatus { get; }
         public PlayerActivity Activity { get; set; } = PlayerActivity.None;
@@ -24,6 +25,7 @@ namespace metabolism.Server.Application.Utils
             Player = player;
             Handle = player.Handle;
             Character = character;
+            Health = new CharacterHealthStatus(100f);
             Gauges = gauges;
             BodyPartsStatus = bodyParts;
         }

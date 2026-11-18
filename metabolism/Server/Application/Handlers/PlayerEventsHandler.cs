@@ -42,5 +42,10 @@ namespace metabolism.Server.Application.Handlers
         {
             _bodyParts.ApplyDamage(player.Handle, boneId, damageAmount, (DamageSource)source); 
         }
+        
+        public void OnPlayerRespawned([FromSource] Player player)
+        {
+            _bodyParts.RevivePlayer(player.Handle);
+        }
     }
 }

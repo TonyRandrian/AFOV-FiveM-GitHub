@@ -6,5 +6,6 @@ namespace metabolism.Server.Application.Interfaces
     {
         void SendGauges(PlayerState state);
         void SendBodyParts(PlayerState state);
+        void SendPlayerDeath(PlayerState state);
     }
 }

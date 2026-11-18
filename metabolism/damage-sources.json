@@ -28,12 +28,30 @@
         "UseBone": false,
         "DamageMultiplier": 1.0,
         "Zones": [
-            { "BodyPart": "HEAD", "Share": 0.1 },
+            { "BodyPart": "HEAD", "Share": 0.2 },
             { "BodyPart": "TORSO", "Share": 0.2 },
-            { "BodyPart": "LEFT_ARM", "Share": 0.2 },
-            { "BodyPart": "RIGHT_ARM", "Share": 0.2 },
+            { "BodyPart": "LEFT_ARM", "Share": 0.1 },
+            { "BodyPart": "RIGHT_ARM", "Share": 0.1 },
             { "BodyPart": "LEFT_LEG", "Share": 0.2 },
             { "BodyPart": "RIGHT_LEG", "Share": 0.2 }
         ]
+    },
+    {
+        "Source": "DROWNING",
+        "UseBone": false,
+        "DamageMultiplier": 1.0,
+        "Zones": []
+    },
+    {
+        "Source": "ELECTRIC",
+        "UseBone": false,
+        "DamageMultiplier": 1.0,
+        "Zones": []
+    },
+    {
+        "Source": "ENVIRONMENT",
+        "UseBone": false,
+        "DamageMultiplier": 1.0,
+        "Zones": []
     }
 ]

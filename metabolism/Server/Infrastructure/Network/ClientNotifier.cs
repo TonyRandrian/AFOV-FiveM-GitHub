@@ -62,5 +62,10 @@ namespace metabolism.Server.Infrastructure.Network
             string responseJson = JsonConvert.SerializeObject(response);
             state.Player.TriggerEvent(Events.UPDATE_BODY_PART, responseJson);
         }
+
+        public void SendPlayerDeath(PlayerState state)
+        {
+            state.Player.TriggerEvent(Events.PLAYER_DIED);
+        }
     }
 }
