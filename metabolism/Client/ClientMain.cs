@@ -146,7 +146,7 @@ namespace metabolism.Client
             }
 
             if (_restrictions.HasFlag(ActionRestriction.SLOW_MOVEMENT))
-                SetPedMoveRateOverride(ped, 0.6f);
+                SetPedMoveRateOverride(ped, 0.75f);
 
             return Task.FromResult(0);
         }

@@ -112,7 +112,7 @@ namespace metabolism.Server.Application.Services
             }
 
             state.Health.Revive();
-            Debug.WriteLine($"[Metabolism] Player {state.Player.Name} revived.");
+            _restrictions.Refresh(state);
         }
     }
 }
