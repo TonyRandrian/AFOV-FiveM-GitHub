@@ -42,6 +42,10 @@ namespace metabolism.Server.Application.Services
             if (!_registry.TryGet(handle, out PlayerState state))
                 return;
 
+            // avoid applying damage if the player is already dead
+            if (state.Health.IsDead)
+                return;
+
             bool hasProfile = _profiles.TryGetValue(source, out DamageSourceProfile profile);
             float sourceMultiplier = hasProfile
                 ? profile.DamageMultiplier : 
@@ -56,6 +60,7 @@ namespace metabolism.Server.Application.Services
             {
                 Debug.WriteLine($"[Metabolism] Player {state.Player.Name} is dead.");
                 _notifier.SendPlayerDeath(state);
+                return;
             }
 
             // just substract the global PV if no profile
@@ -81,7 +86,7 @@ namespace metabolism.Server.Application.Services
                 }
             }
 
-            //_notifier.SendBodyParts(state);
+            _notifier.SendBodyParts(state);
         }
 
         private static void ApplyToZone(PlayerState state, BodyPartEnum zone, float damage)

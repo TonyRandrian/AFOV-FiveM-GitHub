@@ -25,12 +25,10 @@ namespace metabolism.Client
                 new Action<string, List<object>>(OnGameEventTriggered);
             EventHandlers[Events.UPDATE_BODY_PART] +=
                 new Action<string>(OnBodyPartUpdated);
-            EventHandlers["playerSpawned"] +=
+            EventHandlers[Events.PLAYER_SPAWNED] +=
                 new Action<IDictionary<string, object>>(OnPlayerSpawned);
             EventHandlers[Events.PLAYER_DIED] +=
                 new Action(OnPlayerDied);
-            EventHandlers[Events.PLAYER_RESPAWNED] +=
-                new Action<IDictionary<string, object>>(OnPlayerSpawned);
 
             RegisterCommand("tp", new Action(TeleportRandomly), false);
 
