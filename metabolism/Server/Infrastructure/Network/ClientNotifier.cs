@@ -48,16 +48,22 @@ namespace metabolism.Server.Infrastructure.Network
         
         public void SendBodyParts(PlayerState state)
         {
-            List<object> response = new List<object>();
+            List<object> responseList = new List<object>();
 
             foreach (BodyPartCharacterStatus bodyPart in state.BodyPartsStatus)
             {
-                response.Add(new
+                responseList.Add(new
                 {
                     BodyPart = bodyPart.BodyPart.BodyPart.ToString(),
                     bodyPart.Health
                 });
             }
+
+            object response = new
+            {
+                BodyParts = responseList,
+                state.Health.Health
+            };
 
             string responseJson = JsonConvert.SerializeObject(response);
             state.Player.TriggerEvent(Events.UPDATE_BODY_PART, responseJson);

@@ -51,8 +51,12 @@ function App() {
       {
         bodyParts && isHudVisible && isAllHudVisible && (
           <div id="body-part-container" style={{ display: "flex", flexDirection: "column", color: "red" }}>
+              <div>
+                <div>Health</div>
+                <div>{bodyParts.Health}</div>
+              </div>
             {
-              bodyParts.map(bodyPart => (
+              bodyParts.BodyParts.map(bodyPart => (
                 <div>
                   <div>{bodyPart.BodyPart}</div>
                   <div>{bodyPart.Health}</div>

@@ -24,5 +24,10 @@ namespace metabolism.Server.Domain
         {
             Health = Math.Min(BodyPart.MaxHealth, Health + damage);
         }
+
+        public void FullyHeal()
+        {
+            Health = BodyPart.MaxHealth;
+        }
     }
 }

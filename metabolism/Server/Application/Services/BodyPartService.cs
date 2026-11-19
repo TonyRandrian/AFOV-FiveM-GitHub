@@ -42,7 +42,7 @@ namespace metabolism.Server.Application.Services
             if (!_registry.TryGet(handle, out PlayerState state))
                 return;
 
-            // avoid applying damage if the player is already dead
+            // avoid applying damage if the player is dead
             if (state.Health.IsDead)
                 return;
 
@@ -60,7 +60,6 @@ namespace metabolism.Server.Application.Services
             {
                 Debug.WriteLine($"[Metabolism] Player {state.Player.Name} is dead.");
                 _notifier.SendPlayerDeath(state);
-                return;
             }
 
             // just substract the global PV if no profile
@@ -102,6 +101,11 @@ namespace metabolism.Server.Application.Services
         {
             if (!_registry.TryGet(handle, out PlayerState state))
                 return;
+
+            foreach (BodyPartCharacterStatus bpcs in state.BodyPartsStatus)
+            {
+                bpcs.FullyHeal();
+            }
 
             state.Health.Revive();
             Debug.WriteLine($"[Metabolism] Player {state.Player.Name} revived.");
