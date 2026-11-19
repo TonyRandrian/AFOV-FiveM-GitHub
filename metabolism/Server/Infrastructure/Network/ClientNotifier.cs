@@ -1,6 +1,7 @@
 ﻿using metabolism.Server.Application.Interfaces;
 using metabolism.Server.Application.Utils;
 using metabolism.Server.Domain;
+using metabolism.Shared;
 using metabolism.Shared.DTOs;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -72,6 +73,11 @@ namespace metabolism.Server.Infrastructure.Network
         public void SendPlayerDeath(PlayerState state)
         {
             state.Player.TriggerEvent(Events.PLAYER_DIED);
+        }
+
+        public void SendRestrictions(PlayerState state, ActionRestriction restrictions)
+        {
+            state.Player.TriggerEvent(Events.UPDATE_RESTRICTIONS, (int)restrictions);
         }
     }
 }

@@ -8,14 +8,14 @@ using static CitizenFX.Core.Native.API;
 
 namespace metabolism.Client
 {
-
     public class ClientMain : BaseScript
     {
         int lastIndex = 0;
         private bool _isHudVisible = false;
         private bool _isAllHudVisible = true;
         private PlayerActivity _lastActivity = PlayerActivity.None;
-        private readonly Random _random = new Random();
+        private ActionRestriction _restrictions = ActionRestriction.NONE;
+        
 
         public ClientMain()
         {
@@ -29,6 +29,8 @@ namespace metabolism.Client
                 new Action<IDictionary<string, object>>(OnPlayerSpawned);
             EventHandlers[Events.PLAYER_DIED] +=
                 new Action(OnPlayerDied);
+            EventHandlers[Events.UPDATE_RESTRICTIONS] +=
+                new Action<int>(OnRestrictionsUpdated);
 
             RegisterCommand("tp", new Action(TeleportRandomly), false);
 
@@ -48,6 +50,11 @@ namespace metabolism.Client
                     GiveWeaponToPed(ped, weaponHash, 10, false, false);
                 }
             }), false);
+        }
+
+        private void OnRestrictionsUpdated(int restrictions)
+        {
+            _restrictions = (ActionRestriction)restrictions;
         }
 
         private void OnPlayerDied()
@@ -110,6 +117,37 @@ namespace metabolism.Client
                     }
                 }
             }
+        }
+
+        public Task OnRestrictionsTick()
+        {
+            int ped = PlayerPedId();
+
+            if (_restrictions.HasFlag(ActionRestriction.NO_SPRINT))
+                DisableControlAction(0, 21, true);
+
+            if (_restrictions.HasFlag(ActionRestriction.NO_JUMP))
+                DisableControlAction(0, 22, true);
+
+            if (_restrictions.HasFlag(ActionRestriction.NO_WALK))
+            {
+                DisableControlAction(0, 30, true);
+                DisableControlAction(0, 31, true);
+            }
+
+            if (_restrictions.HasFlag(ActionRestriction.NO_AIM))
+                DisableControlAction(0, 25, true);
+
+            if (_restrictions.HasFlag(ActionRestriction.NO_FIRE))
+            {
+                DisableControlAction(0, 24, true);
+                DisableControlAction(0, 257, true);
+            }
+
+            if (_restrictions.HasFlag(ActionRestriction.SLOW_MOVEMENT))
+                SetPedMoveRateOverride(ped, 0.6f);
+
+            return Task.FromResult(0);
         }
 
         [Tick]

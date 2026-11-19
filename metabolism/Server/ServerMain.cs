@@ -22,6 +22,7 @@ namespace metabolism.Server
 
             JsonGaugeConfigProvider gaugeConfig = new JsonGaugeConfigProvider(resourceName);
             JsonBodyPartConfigProvider bodyPartConfig = new JsonBodyPartConfigProvider(resourceName);
+            JsonRestrictionConfigProvider restrictionConfig = new JsonRestrictionConfigProvider(resourceName);
             JsonDamageSourceConfigProvider damageSourceConfig = new JsonDamageSourceConfigProvider(resourceName);
             PlayerRegistry registry = new PlayerRegistry();
             ClientNotifier notifier = new ClientNotifier();
@@ -29,7 +30,8 @@ namespace metabolism.Server
 
             PlayerSessionService sessions = new PlayerSessionService(gaugeConfig, bodyPartConfig, registry);
             _gauges = new GaugeService(registry, notifier);
-            BodyPartService bodyParts = new BodyPartService(registry, notifier, boneMapper, damageSourceConfig);
+            RestrictionService restrictions = new RestrictionService(notifier, restrictionConfig);
+            BodyPartService bodyParts = new BodyPartService(registry, notifier, boneMapper, damageSourceConfig, restrictions);
 
             PlayerEventsHandler handler = new PlayerEventsHandler(sessions, _gauges, bodyParts);
 

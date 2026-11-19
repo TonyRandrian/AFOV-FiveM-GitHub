@@ -10,4 +10,6 @@ public static class Events
     public const string PLAYER_DIED = "metabolism:playerDied";
     public const string PLAYER_RESPAWNED = "metabolism:playerRespawned";
     public const string PLAYER_SPAWNED = "playerSpawned";
+    public const string UPDATE_RESTRICTIONS = "metabolism:updateRestrictions";
+    public const string UPDATE_MOVEMENT_CLIPSET = "metabolism:updateMovementClipset";
 }

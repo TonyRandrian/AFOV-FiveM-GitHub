@@ -1,4 +1,5 @@
-﻿using System;
+﻿using metabolism.Shared;
+using System;
 
 namespace metabolism.Server.Domain
 {
@@ -28,6 +29,11 @@ namespace metabolism.Server.Domain
         public void FullyHeal()
         {
             Health = BodyPart.MaxHealth;
+        }
+
+        public InjuryState GetInjuryState()
+        {
+            return InjuryStateResolver.Resolve(Health, BodyPart.InjuryThresholds);
         }
     }
 }

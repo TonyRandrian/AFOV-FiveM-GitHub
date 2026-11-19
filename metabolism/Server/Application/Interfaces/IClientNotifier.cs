@@ -1,4 +1,5 @@
 ﻿using metabolism.Server.Application.Utils;
+using metabolism.Shared;
 
 namespace metabolism.Server.Application.Interfaces
 {
@@ -7,5 +8,6 @@ namespace metabolism.Server.Application.Interfaces
         void SendGauges(PlayerState state);
         void SendBodyParts(PlayerState state);
         void SendPlayerDeath(PlayerState state);
+        void SendRestrictions(PlayerState state, ActionRestriction restrictions);
     }
 }

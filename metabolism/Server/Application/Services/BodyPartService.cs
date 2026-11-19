@@ -14,17 +14,20 @@ namespace metabolism.Server.Application.Services
         private readonly IClientNotifier _notifier;
         private readonly BoneBodyPartMapper _boneMapper;
         private readonly Dictionary<DamageSource, DamageSourceProfile> _profiles;
+        private readonly RestrictionService _restrictions;
 
 
         public BodyPartService(
             PlayerRegistry registry,
             IClientNotifier notifier,
             BoneBodyPartMapper boneMapper,
-            IDamageSourceConfigProvider damageSourceConfigProvider)
+            IDamageSourceConfigProvider damageSourceConfigProvider,
+            RestrictionService restrictions)
         {
             _registry = registry;
             _notifier = notifier;
             _boneMapper = boneMapper;
+            _restrictions = restrictions;
 
             _profiles = damageSourceConfigProvider.LoadDamageSourceProfiles()
                 .ToDictionary(profile => profile.Source);
@@ -86,6 +89,7 @@ namespace metabolism.Server.Application.Services
             }
 
             _notifier.SendBodyParts(state);
+            _restrictions.Refresh(state);
         }
 
         private static void ApplyToZone(PlayerState state, BodyPartEnum zone, float damage)
