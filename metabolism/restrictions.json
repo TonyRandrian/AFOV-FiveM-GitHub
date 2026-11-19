@@ -1,25 +1,92 @@
 [
-    { "BodyPart": "LEFT_LEG", "InjuryState": "INJURED", "Restrictions": ["SLOW_MOVEMENT"] },
-    { "BodyPart": "LEFT_LEG", "InjuryState": "CRITICAL", "Restrictions": ["NO_SPRINT", "SLOW_MOVEMENT"] },
-    { "BodyPart": "LEFT_LEG", "InjuryState": "DISABLED", "Restrictions": ["NO_SPRINT", "NO_JUMP", "NO_WALK"] },
-
-    { "BodyPart": "RIGHT_LEG", "InjuryState": "INJURED", "Restrictions": ["SLOW_MOVEMENT"] },
-    { "BodyPart": "RIGHT_LEG", "InjuryState": "CRITICAL", "Restrictions": ["NO_SPRINT", "SLOW_MOVEMENT"] },
-    { "BodyPart": "RIGHT_LEG", "InjuryState": "DISABLED", "Restrictions": ["NO_SPRINT", "NO_JUMP", "NO_WALK"] },
-
-    { "BodyPart": "LEFT_ARM", "InjuryState": "INJURED", "Restrictions": ["NO_AIM"] },
-    { "BodyPart": "LEFT_ARM", "InjuryState": "CRITICAL", "Restrictions": ["NO_AIM", "NO_FIRE"] },
-    { "BodyPart": "LEFT_ARM", "InjuryState": "DISABLED", "Restrictions": ["NO_AIM", "NO_FIRE", "NO_MELEE"] },
-
-    { "BodyPart": "RIGHT_ARM", "InjuryState": "INJURED", "Restrictions": ["NO_AIM"] },
-    { "BodyPart": "RIGHT_ARM", "InjuryState": "CRITICAL", "Restrictions": ["NO_AIM", "NO_FIRE"] },
-    { "BodyPart": "RIGHT_ARM", "InjuryState": "DISABLED", "Restrictions": ["NO_AIM", "NO_FIRE", "NO_MELEE"] },
-
-    { "BodyPart": "TORSO", "InjuryState": "INJURED", "Restrictions": ["SLOW_MOVEMENT"] },
-    { "BodyPart": "TORSO", "InjuryState": "CRITICAL", "Restrictions": ["SLOW_MOVEMENT", "NO_SPRINT"] },
-    { "BodyPart": "TORSO", "InjuryState": "DISABLED", "Restrictions": ["SLOW_MOVEMENT", "NO_SPRINT", "NO_JUMP"] },
-
-    { "BodyPart": "HEAD", "InjuryState": "INJURED", "Restrictions": ["BLURRED_VISION"] },
-    { "BodyPart": "HEAD", "InjuryState": "CRITICAL", "Restrictions": ["BLURRED_VISION", "CAMERA_SHAKE"] },
-    { "BodyPart": "HEAD", "InjuryState": "DISABLED", "Restrictions": ["BLURRED_VISION", "CAMERA_SHAKE", "NO_AIM"] }
+    {
+        "BodyPart": "LEFT_LEG",
+        "State": "INJURED",
+        "Restrictions": "SLOW_MOVEMENT"
+    },
+    {
+        "BodyPart": "LEFT_LEG",
+        "State": "CRITICAL",
+        "Restrictions": "NO_SPRINT, SLOW_MOVEMENT"
+    },
+    {
+        "BodyPart": "LEFT_LEG",
+        "State": "DISABLED",
+        "Restrictions": "NO_SPRINT, NO_JUMP, NO_WALK"
+    },
+    {
+        "BodyPart": "RIGHT_LEG",
+        "State": "INJURED",
+        "Restrictions": "SLOW_MOVEMENT"
+    },
+    {
+        "BodyPart": "RIGHT_LEG",
+        "State": "CRITICAL",
+        "Restrictions": "NO_SPRINT, SLOW_MOVEMENT"
+    },
+    {
+        "BodyPart": "RIGHT_LEG",
+        "State": "DISABLED",
+        "Restrictions": "NO_SPRINT, NO_JUMP, NO_WALK"
+    },
+    {
+        "BodyPart": "LEFT_ARM",
+        "State": "INJURED",
+        "Restrictions": "NO_AIM"
+    },
+    {
+        "BodyPart": "LEFT_ARM",
+        "State": "CRITICAL",
+        "Restrictions": "NO_AIM, NO_FIRE"
+    },
+    {
+        "BodyPart": "LEFT_ARM",
+        "State": "DISABLED",
+        "Restrictions": "NO_AIM, NO_FIRE, NO_MELEE"
+    },
+    {
+        "BodyPart": "RIGHT_ARM",
+        "State": "INJURED",
+        "Restrictions": "NO_AIM"
+    },
+    {
+        "BodyPart": "RIGHT_ARM",
+        "State": "CRITICAL",
+        "Restrictions": "NO_AIM, NO_FIRE"
+    },
+    {
+        "BodyPart": "RIGHT_ARM",
+        "State": "DISABLED",
+        "Restrictions": "NO_AIM, NO_FIRE, NO_MELEE"
+    },
+    {
+        "BodyPart": "TORSO",
+        "State": "INJURED",
+        "Restrictions": "SLOW_MOVEMENT"
+    },
+    {
+        "BodyPart": "TORSO",
+        "State": "CRITICAL",
+        "Restrictions": "SLOW_MOVEMENT, NO_SPRINT"
+    },
+    {
+        "BodyPart": "TORSO",
+        "State": "DISABLED",
+        "Restrictions": "SLOW_MOVEMENT, NO_SPRINT, NO_JUMP"
+    },
+    {
+        "BodyPart": "HEAD",
+        "State": "INJURED",
+        "Restrictions": "BLURRED_VISION"
+    },
+    {
+        "BodyPart": "HEAD",
+        "State": "CRITICAL",
+        "Restrictions": "BLURRED_VISION, CAMERA_SHAKE"
+    },
+    {
+        "BodyPart": "HEAD",
+        "State": "DISABLED",
+        "Restrictions": "BLURRED_VISION, CAMERA_SHAKE, NO_AIM"
+    }
 ]

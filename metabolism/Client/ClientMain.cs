@@ -119,6 +119,7 @@ namespace metabolism.Client
             }
         }
 
+        [Tick]
         public Task OnRestrictionsTick()
         {
             int ped = PlayerPedId();

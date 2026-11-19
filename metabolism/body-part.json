@@ -5,10 +5,26 @@
         "MaxHealth": 100.0,
         "WeaponDamageMultiplier": 5.0,
         "InjuryThresholds": [
-            { "State": "HEALTHY", "MinHealth": 59.9, "MaxHealth": 100.0 },
-            { "State": "INJURED", "MinHealth": 19.9, "MaxHealth": 60.0 },
-            { "State": "CRITICAL", "MinHealth": 0.1, "MaxHealth": 20.0 },
-            { "State": "DISABLED", "MinHealth": 0.0, "MaxHealth": 0.0 }
+            {
+                "State": "HEALTHY",
+                "MinHealth": 60.0,
+                "MaxHealth": 100.0
+            },
+            {
+                "State": "INJURED",
+                "MinHealth": 20.0,
+                "MaxHealth": 59.9
+            },
+            {
+                "State": "CRITICAL",
+                "MinHealth": 0.1,
+                "MaxHealth": 19.9
+            },
+            {
+                "State": "DISABLED",
+                "MinHealth": 0.0,
+                "MaxHealth": 0.0
+            }
         ]
     },
     {
@@ -18,10 +34,26 @@
         "HealthCriticalThreshold": 20.0,
         "WeaponDamageMultiplier": 1,
         "InjuryThresholds": [
-            { "State": "HEALTHY", "MinHealth": 59.9, "MaxHealth": 100.0 },
-            { "State": "INJURED", "MinHealth": 19.9, "MaxHealth": 60.0 },
-            { "State": "CRITICAL", "MinHealth": 0.1, "MaxHealth": 20.0 },
-            { "State": "DISABLED", "MinHealth": 0.0, "MaxHealth": 0.0 }
+            {
+                "State": "HEALTHY",
+                "MinHealth": 60.0,
+                "MaxHealth": 100.0
+            },
+            {
+                "State": "INJURED",
+                "MinHealth": 20.0,
+                "MaxHealth": 59.9
+            },
+            {
+                "State": "CRITICAL",
+                "MinHealth": 0.1,
+                "MaxHealth": 19.9
+            },
+            {
+                "State": "DISABLED",
+                "MinHealth": 0.0,
+                "MaxHealth": 0.0
+            }
         ]
     },
     {
@@ -30,10 +62,54 @@
         "MaxHealth": 100.0,
         "WeaponDamageMultiplier": 0.5,
         "InjuryThresholds": [
-            { "State": "HEALTHY", "MinHealth": 59.9, "MaxHealth": 100.0 },
-            { "State": "INJURED", "MinHealth": 19.9, "MaxHealth": 60.0 },
-            { "State": "CRITICAL", "MinHealth": 0.1, "MaxHealth": 20.0 },
-            { "State": "DISABLED", "MinHealth": 0.0, "MaxHealth": 0.0 }
+            {
+                "State": "HEALTHY",
+                "MinHealth": 60.0,
+                "MaxHealth": 100.0
+            },
+            {
+                "State": "INJURED",
+                "MinHealth": 20.0,
+                "MaxHealth": 59.9
+            },
+            {
+                "State": "CRITICAL",
+                "MinHealth": 0.1,
+                "MaxHealth": 19.9
+            },
+            {
+                "State": "DISABLED",
+                "MinHealth": 0.0,
+                "MaxHealth": 0.0
+            }
+        ]
+    },
+    {
+        "Id": "00000000-0000-0000-0000-000000000003",
+        "BodyPart": "RIGHT_ARM",
+        "MaxHealth": 100.0,
+        "WeaponDamageMultiplier": 0.5,
+        "InjuryThresholds": [
+            {
+                "State": "HEALTHY",
+                "MinHealth": 60.0,
+                "MaxHealth": 100.0
+            },
+            {
+                "State": "INJURED",
+                "MinHealth": 20.0,
+                "MaxHealth": 59.9
+            },
+            {
+                "State": "CRITICAL",
+                "MinHealth": 0.1,
+                "MaxHealth": 19.9
+            },
+            {
+                "State": "DISABLED",
+                "MinHealth": 0.0,
+                "MaxHealth": 0.0
+            }
         ]
     },
     {
@@ -42,10 +118,26 @@
         "MaxHealth": 100.0,
         "WeaponDamageMultiplier": 0.5,
         "InjuryThresholds": [
-            { "State": "HEALTHY", "MinHealth": 59.9, "MaxHealth": 100.0 },
-            { "State": "INJURED", "MinHealth": 19.9, "MaxHealth": 60.0 },
-            { "State": "CRITICAL", "MinHealth": 0.1, "MaxHealth": 20.0 },
-            { "State": "DISABLED", "MinHealth": 0.0, "MaxHealth": 0.0 }
+            {
+                "State": "HEALTHY",
+                "MinHealth": 60.0,
+                "MaxHealth": 100.0
+            },
+            {
+                "State": "INJURED",
+                "MinHealth": 20.0,
+                "MaxHealth": 59.9
+            },
+            {
+                "State": "CRITICAL",
+                "MinHealth": 0.1,
+                "MaxHealth": 19.9
+            },
+            {
+                "State": "DISABLED",
+                "MinHealth": 0.0,
+                "MaxHealth": 0.0
+            }
         ]
     },
     {
@@ -54,10 +146,26 @@
         "MaxHealth": 100.0,
         "WeaponDamageMultiplier": 0.5,
         "InjuryThresholds": [
-            { "State": "HEALTHY", "MinHealth": 59.9, "MaxHealth": 100.0 },
-            { "State": "INJURED", "MinHealth": 19.9, "MaxHealth": 60.0 },
-            { "State": "CRITICAL", "MinHealth": 0.1, "MaxHealth": 20.0 },
-            { "State": "DISABLED", "MinHealth": 0.0, "MaxHealth": 0.0 }
+            {
+                "State": "HEALTHY",
+                "MinHealth": 60.0,
+                "MaxHealth": 100.0
+            },
+            {
+                "State": "INJURED",
+                "MinHealth": 20.0,
+                "MaxHealth": 59.9
+            },
+            {
+                "State": "CRITICAL",
+                "MinHealth": 0.1,
+                "MaxHealth": 19.9
+            },
+            {
+                "State": "DISABLED",
+                "MinHealth": 0.0,
+                "MaxHealth": 0.0
+            }
         ]
     }
 ]
