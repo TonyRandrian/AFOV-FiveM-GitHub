@@ -1,0 +1,7 @@
+[
+    { "BodyPart": "LEFT_LEG", "State": "DISABLED", "MovementClipset": "move_m@large_crouched", "Priority": 100 },
+    { "BodyPart": "LEFT_LEG", "State": "CRITICAL", "MovementClipset": "move_m@injured", "Priority": 80 },
+    { "BodyPart": "RIGHT_LEG", "State": "DISABLED", "MovementClipset": "move_m@large_crouched", "Priority": 100 },
+    { "BodyPart": "RIGHT_LEG", "State": "CRITICAL", "MovementClipset": "move_m@injured", "Priority": 80 },
+    { "BodyPart": "TORSO", "State": "CRITICAL", "MovementClipset": "move_m@injured", "Priority": 60 }
+]

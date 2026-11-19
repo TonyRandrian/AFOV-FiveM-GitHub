@@ -15,6 +15,7 @@ copy /y config.json dist
 copy /y body-part.json dist
 copy /y damage-sources.json dist
 copy /y restrictions.json dist
+copy /y animations.json dist
 
 xcopy /y /e Client\bin\Release\net452\publish dist\Client\bin\Release\net452\publish\
 xcopy /y /e Server\bin\Release\netstandard2.0\publish dist\Server\bin\Release\netstandard2.0\publish\

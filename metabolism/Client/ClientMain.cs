@@ -15,6 +15,7 @@ namespace metabolism.Client
         private bool _isAllHudVisible = true;
         private PlayerActivity _lastActivity = PlayerActivity.None;
         private ActionRestriction _restrictions = ActionRestriction.NONE;
+        private string _currentClipset = null;
         
 
         public ClientMain()
@@ -31,6 +32,8 @@ namespace metabolism.Client
                 new Action(OnPlayerDied);
             EventHandlers[Events.UPDATE_RESTRICTIONS] +=
                 new Action<int>(OnRestrictionsUpdated);
+            EventHandlers[Events.UPDATE_MOVEMENT_CLIPSET] +=
+                new Action<string>(OnMovementClipsetUpdated);
 
             RegisterCommand("tp", new Action(TeleportRandomly), false);
 
@@ -55,6 +58,37 @@ namespace metabolism.Client
         private void OnRestrictionsUpdated(int restrictions)
         {
             _restrictions = (ActionRestriction)restrictions;
+        }
+
+        private async void OnMovementClipsetUpdated(string clipset)
+        {
+            if (clipset == _currentClipset)
+                return;
+
+            int ped = PlayerPedId();
+
+            if (string.IsNullOrEmpty(clipset))
+            {
+                ResetPedMovementClipset(ped, 0f);
+            }
+            else
+            {
+                RequestClipSet(clipset);
+
+                int attempts = 0;
+                while (!HasClipSetLoaded(clipset) && attempts < 100)
+                {
+                    await Delay(10);
+                    attempts++;
+                }
+
+                if (HasClipSetLoaded(clipset))
+                {
+                    SetPedMovementClipset(ped, clipset, 1f);
+                }
+            }
+
+            _currentClipset = clipset;
         }
 
         private void OnPlayerDied()
@@ -125,7 +159,9 @@ namespace metabolism.Client
             int ped = PlayerPedId();
 
             if (_restrictions.HasFlag(ActionRestriction.NO_SPRINT))
+            {
                 DisableControlAction(0, 21, true);
+            }
 
             if (_restrictions.HasFlag(ActionRestriction.NO_JUMP))
                 DisableControlAction(0, 22, true);
@@ -146,7 +182,9 @@ namespace metabolism.Client
             }
 
             if (_restrictions.HasFlag(ActionRestriction.SLOW_MOVEMENT))
+            {
                 SetPedMoveRateOverride(ped, 0.75f);
+            }
 
             return Task.FromResult(0);
         }

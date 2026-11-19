@@ -79,5 +79,10 @@ namespace metabolism.Server.Infrastructure.Network
         {
             state.Player.TriggerEvent(Events.UPDATE_RESTRICTIONS, (int)restrictions);
         }
+
+        public void SendMovementClipset(PlayerState state, string clipset)
+        {
+            state.Player.TriggerEvent(Events.UPDATE_MOVEMENT_CLIPSET, clipset ?? string.Empty);
+        }
     }
 }
