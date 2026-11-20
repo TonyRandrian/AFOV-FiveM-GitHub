@@ -38,10 +38,6 @@ namespace metabolism.Server.Application.Services
 
         public void ApplyDamage(string handle, int boneId, float damage, DamageSource source)
         {
-            Debug.WriteLine($"Handle : {handle}");
-            Debug.WriteLine($"SOURCE : {source}");
-            Debug.WriteLine($"Damage : {damage}");
-
             if (damage <= 0 || source == DamageSource.UNKNOWN)
                 return;
             
@@ -60,7 +56,6 @@ namespace metabolism.Server.Application.Services
             // global PV damage
             float globalDamage = damage * sourceMultiplier;
             bool justDied = state.Health.Damage(globalDamage);
-            Debug.WriteLine($"Actual health : {state.Health.Health}");
 
             if (justDied)
             {
@@ -75,8 +70,6 @@ namespace metabolism.Server.Application.Services
             // members PV damage
             float memberDamageMultiplier = 2.0f;
             float memberDamage = globalDamage * memberDamageMultiplier;
-            Debug.WriteLine($"Global : {globalDamage}" );
-            Debug.WriteLine($"Member : {memberDamage}");
 
             if (profile.UseBone)
             {
@@ -98,7 +91,6 @@ namespace metabolism.Server.Application.Services
 
         private static void ApplyToZone(PlayerState state, BodyPartEnum zone, float damage)
         {
-            Debug.WriteLine($"zone : {zone}, damage : {damage}");
             BodyPartCharacterStatus status = state.BodyPartsStatus
                 .FirstOrDefault(s => s.BodyPart.BodyPart == zone);
 
