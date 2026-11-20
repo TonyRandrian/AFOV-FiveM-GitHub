@@ -17,7 +17,8 @@ namespace metabolism.Server.Infrastructure.Network
 
             foreach (CharacterGaugeStatus gauge in state.Gauges)
             {
-                if (gauge.Definition.DisplayType == GaugeDisplayTypeEnum.PERMANENT)
+                if (gauge.Definition.DisplayType == GaugeDisplayTypeEnum.PERMANENT && 
+                    gauge.Definition.Name != "PV")
                 {
                     permanents.Add(new GaugeStateDto
                     {
@@ -40,7 +41,8 @@ namespace metabolism.Server.Infrastructure.Network
             object response = new 
             {
                 Permanents = permanents,
-                Hiddens = hiddens
+                Hiddens = hiddens,
+                state.Health
             };
 
             string responseJson = JsonConvert.SerializeObject(response);

@@ -33,6 +33,13 @@ function App() {
       {
         gauges && isAllHudVisible && (
           <div id="permanent-gauge-container">
+            <Gauge
+              key="PV"
+              label="PV"
+              color="rgb(0, 85, 0)"
+              value={gauges.Health.Health}
+              maxValue={gauges.Health.MaxHealth}
+            />
             {
               gauges.Permanents.map(gauge => (
                 <Gauge
@@ -51,10 +58,6 @@ function App() {
       {
         bodyParts && isHudVisible && isAllHudVisible && (
           <div id="body-part-container" style={{ display: "flex", flexDirection: "column", color: "red" }}>
-              <div>
-                <div>Health</div>
-                <div>{bodyParts.Health}</div>
-              </div>
             {
               bodyParts.BodyParts.map(bodyPart => (
                 <div>
@@ -72,7 +75,7 @@ function App() {
           <div id="hidden-gauge-container">
             {
               gauges.Hiddens.map(gauge => (
-                
+
                 gauge.Name !== "Temperature" ?
                   <Gauge
                     key={gauge.Name}
@@ -82,7 +85,7 @@ function App() {
                     maxValue={gauge.Max} />
                   :
                   <div>
-                    <span>{gauge.Name}</span> : 
+                    <span>{gauge.Name}</span> :
                     <span> {gauge.Value}</span>
                   </div>
               ))
