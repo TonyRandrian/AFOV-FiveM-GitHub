@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import Gauge from "./components/Gauge";
-import BodyRepresentation  from "./components/BodyRepresentation";
+import BodyRepresentation from "./components/BodyRepresentation";
 
 function App() {
   const [isHudVisible, setHudVisible] = useState(false);
@@ -60,7 +60,7 @@ function App() {
         bodyParts && isHudVisible && isAllHudVisible && (
           <div id="body-part-container" /*style={{ display: "flex", flexDirection: "column", color: "red" }}*/>
             {
-              <BodyRepresentation bodyParts={bodyParts.BodyParts}/>
+              <BodyRepresentation bodyParts={bodyParts.BodyParts} />
               // bodyParts.BodyParts.map(bodyPart => (
               //   <div>
               //     <div>{bodyPart.BodyPart}</div>

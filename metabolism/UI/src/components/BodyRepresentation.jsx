@@ -1,5 +1,5 @@
 
-function BodyRepresentation({bodyParts}) {
+function BodyRepresentation({ bodyParts }) {
     const bodyPartStyle = (bodyPartName) => ({
         fill: getPartColor(bodyPartName),
         stroke: "rgb(0, 0, 0)",
