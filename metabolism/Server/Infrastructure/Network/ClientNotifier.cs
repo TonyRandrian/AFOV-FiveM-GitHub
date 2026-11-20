@@ -58,8 +58,8 @@ namespace metabolism.Server.Infrastructure.Network
             {
                 responseList.Add(new
                 {
-                    BodyPart = bodyPart.BodyPart.BodyPart.ToString(),
-                    bodyPart.Health
+                    BodyPart = bodyPart,
+                    BodyPartName = bodyPart.BodyPart.BodyPart.ToString()
                 });
             }
 
