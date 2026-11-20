@@ -65,7 +65,10 @@ namespace metabolism.Server.Application.Services
 
             // just substract the global PV if no profile
             if (!hasProfile)
+            {
+                _notifier.SendBodyParts(state);
                 return;
+            }
 
             // members PV damage
             float memberDamageMultiplier = 2.0f;
