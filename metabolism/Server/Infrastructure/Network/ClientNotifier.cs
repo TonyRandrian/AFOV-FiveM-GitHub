@@ -17,24 +17,26 @@ namespace metabolism.Server.Infrastructure.Network
 
             foreach (CharacterGaugeStatus gauge in state.Gauges)
             {
-                if (gauge.Definition.DisplayType == GaugeDisplayTypeEnum.PERMANENT && 
-                    gauge.Definition.Name != "PV")
+                if (gauge.Definition.Name != "PV")
                 {
-                    permanents.Add(new GaugeStateDto
+                    if (gauge.Definition.DisplayType == GaugeDisplayTypeEnum.PERMANENT)
                     {
-                        Name = gauge.Definition.Name,
-                        Value = gauge.Value,
-                        Max = gauge.Max
-                    });
-                } 
-                else
-                {
-                    hiddens.Add(new GaugeStateDto
+                        permanents.Add(new GaugeStateDto
+                        {
+                            Name = gauge.Definition.Name,
+                            Value = gauge.Value,
+                            Max = gauge.Max
+                        });
+                    }
+                    else
                     {
-                        Name = gauge.Definition.Name,
-                        Value = gauge.Value,
-                        Max = gauge.Max
-                    });
+                        hiddens.Add(new GaugeStateDto
+                        {
+                            Name = gauge.Definition.Name,
+                            Value = gauge.Value,
+                            Max = gauge.Max
+                        });
+                    }
                 }
             }
 
