@@ -47,12 +47,22 @@ namespace metabolism.Client
                 if (DoesEntityExist(ped))
                 {
                     // Hash de l'arme (ici un Molotov pour tester le feu, modifiable selon vos envies)
-                    uint weaponHash = (uint)GetHashKey("WEAPON_MOLOTOV");
+                    uint molotovHash = (uint)GetHashKey("WEAPON_MOLOTOV");
+                    uint pistol_1 = (uint)GetHashKey("WEAPON_COMBATPISTOL");
+                    uint pistol_2 = (uint)GetHashKey("WEAPON_APPISTOL");
 
                     // Donner l'arme au joueur avec 10 munitions
-                    GiveWeaponToPed(ped, weaponHash, 10, false, false);
+                    GiveWeaponToPed(ped, molotovHash, 10, false, false);
+                    GiveWeaponToPed(ped, pistol_1, 100, false, false);
+                    GiveWeaponToPed(ped, pistol_2, 100, false, false);
                 }
             }), false);
+        }
+
+        private void EnablePvP()
+        {
+            NetworkSetFriendlyFireOption(true);
+            SetCanAttackFriendly(PlayerPedId(), true, false);
         }
 
         private void OnRestrictionsUpdated(int restrictions)
@@ -102,6 +112,7 @@ namespace metabolism.Client
         {
             await Delay(500);
 
+            EnablePvP();
             int ped = Game.PlayerPed.Handle;
 
             SetEntityMaxHealth(ped, 10000);

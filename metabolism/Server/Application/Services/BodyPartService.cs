@@ -108,6 +108,7 @@ namespace metabolism.Server.Application.Services
             }
 
             state.Health.Revive();
+            _notifier.SendBodyParts(state);
             _restrictions.Refresh(state);
             _animations.Refresh(state);
         }

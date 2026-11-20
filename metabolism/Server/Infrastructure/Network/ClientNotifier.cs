@@ -41,8 +41,7 @@ namespace metabolism.Server.Infrastructure.Network
             object response = new 
             {
                 Permanents = permanents,
-                Hiddens = hiddens,
-                state.Health
+                Hiddens = hiddens
             };
 
             string responseJson = JsonConvert.SerializeObject(response);
@@ -65,7 +64,7 @@ namespace metabolism.Server.Infrastructure.Network
             object response = new
             {
                 BodyParts = responseList,
-                state.Health.Health
+                state.Health
             };
 
             string responseJson = JsonConvert.SerializeObject(response);

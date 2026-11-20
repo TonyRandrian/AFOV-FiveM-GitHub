@@ -29,7 +29,7 @@ namespace metabolism.Server
             ClientNotifier notifier = new ClientNotifier();
             BoneBodyPartMapper boneMapper = new BoneBodyPartMapper();
 
-            PlayerSessionService sessions = new PlayerSessionService(gaugeConfig, bodyPartConfig, registry);
+            PlayerSessionService sessions = new PlayerSessionService(gaugeConfig, bodyPartConfig, registry, notifier);
             _gauges = new GaugeService(registry, notifier);
             RestrictionService restrictions = new RestrictionService(notifier, restrictionConfig);
             AnimationService animations = new AnimationService(notifier, animationConfig);

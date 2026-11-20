@@ -31,14 +31,14 @@ function App() {
   return (
     <div id="container">
       {
-        gauges && isAllHudVisible && (
+        gauges && bodyParts && isAllHudVisible && (
           <div id="permanent-gauge-container">
             <Gauge
               key="PV"
               label="PV"
               color="rgb(0, 85, 0)"
-              value={gauges.Health.Health}
-              maxValue={gauges.Health.MaxHealth}
+              value={bodyParts.Health.Health}
+              maxValue={bodyParts.Health.MaxHealth}
             />
             {
               gauges.Permanents.map(gauge => (
