@@ -16,7 +16,17 @@ namespace metabolism.Client
         private PlayerActivity _lastActivity = PlayerActivity.None;
         private ActionRestriction _restrictions = ActionRestriction.NONE;
         private string _currentClipset = null;
-        
+
+        private string _animationDictionary = string.Empty;
+        private string _animation = string.Empty;
+        private string _enterAnimation = string.Empty;
+        private string _exitAnimation = string.Empty;
+        private string _playbackType = string.Empty;
+        private int _animationInterval;
+        private string _currentAnimationKey = string.Empty;
+        private int _lastPeriodicAnimationTime;
+        private int _animationGeneration = 0;
+
 
         public ClientMain()
         {
@@ -34,6 +44,8 @@ namespace metabolism.Client
                 new Action<int>(OnRestrictionsUpdated);
             EventHandlers[Events.UPDATE_MOVEMENT_CLIPSET] +=
                 new Action<string>(OnMovementClipsetUpdated);
+            EventHandlers[Events.UPDATE_ANIMATION] +=
+                new Action<string, string, string, string, string, int>(OnAnimationUpdated);
         }
 
         private void EnablePvP()
@@ -46,6 +58,221 @@ namespace metabolism.Client
         {
             _restrictions = (ActionRestriction)restrictions;
         }
+
+
+        private async void OnAnimationUpdated(
+            string dictionary,
+            string animation,
+            string enterAnimation,
+            string exitAnimation,
+            string playbackType,
+            int interval)
+        {
+            string animationName = !string.IsNullOrEmpty(animation)
+                ? animation
+                : enterAnimation;
+
+            string key = $"{dictionary}:{animationName}:{exitAnimation}:{playbackType}:{interval}";
+
+            if (key == _currentAnimationKey)
+                return;
+
+            int generation = ++_animationGeneration;
+            int ped = PlayerPedId();
+
+            ClearPedSecondaryTask(ped);
+            _currentAnimationKey = key;
+
+            if (string.IsNullOrEmpty(dictionary))
+            {
+                _currentAnimationKey = string.Empty;
+                return;
+            }
+
+            RequestAnimDict(dictionary);
+
+            int attempts = 0;
+
+            while (!HasAnimDictLoaded(dictionary) && attempts < 100)
+            {
+                await Delay(10);
+                attempts++;
+            }
+
+            if (generation != _animationGeneration)
+                return;
+
+            if (!HasAnimDictLoaded(dictionary))
+            {
+                Debug.WriteLine($"[Metabolism] Animation dictionary not loaded: {dictionary}");
+                _currentAnimationKey = string.Empty;
+                return;
+            }
+
+            ped = PlayerPedId();
+
+            if (playbackType == "PERMANENT")
+            {
+                TaskPlayAnim(
+                    ped, dictionary, animationName,
+                    8f, -8f, -1, 1, 0f,
+                    false, false, false
+                );
+            }
+            else if (playbackType == "PERIODIC")
+            {
+                _ = RunPeriodicAnimation(
+                    generation,
+                    dictionary,
+                    animation,
+                    enterAnimation,
+                    exitAnimation,
+                    interval
+                );
+            }
+        }
+
+
+        private async Task RunPeriodicAnimation(
+            int generation,
+            string dictionary,
+            string animation,
+            string enterAnimation,
+            string exitAnimation,
+            int interval)
+        {
+            int ped = PlayerPedId();
+
+            while (generation == _animationGeneration)
+            {
+                if (!string.IsNullOrEmpty(enterAnimation))
+                {
+                    await PlayAndWaitAnimation(
+                        ped, dictionary, enterAnimation, generation
+                    );
+                }
+
+                if (generation != _animationGeneration)
+                    break;
+
+                if (!string.IsNullOrEmpty(exitAnimation))
+                {
+                    await PlayAndWaitAnimation(
+                        ped, dictionary, exitAnimation, generation
+                    );
+                }
+
+                if (generation != _animationGeneration)
+                    break;
+
+                if (!string.IsNullOrEmpty(animation))
+                {
+                    await PlayAndWaitAnimation(
+                        ped, dictionary, animation, generation
+                    );
+                }
+
+                if (generation != _animationGeneration)
+                    break;
+
+                await Delay(Math.Max(interval, 1) * 1000);
+            }
+        }
+
+
+        private async Task PlayAndWaitAnimation(
+            int ped,
+            string dictionary,
+            string animation,
+            int generation)
+        {
+            TaskPlayAnim(
+                ped,
+                dictionary,
+                animation,
+                8f,
+                -8f,
+                -1,
+                0,
+                0f,
+                false,
+                false,
+                false
+            );
+
+            while (generation == _animationGeneration
+                && IsEntityPlayingAnim(ped, dictionary, animation, 3))
+            {
+                await Delay(100);
+            }
+        }
+
+
+        private async Task PlayPeriodicAnimation(
+            int ped,
+            string dictionary,
+            string animation,
+            string enterAnimation,
+            string exitAnimation)
+        {
+            if (!string.IsNullOrEmpty(enterAnimation))
+            {
+                TaskPlayAnim(
+                    ped,
+                    dictionary,
+                    enterAnimation,
+                    8f,
+                    -8f,
+                    -1,
+                    0,
+                    0f,
+                    false,
+                    false,
+                    false
+                );
+
+                while (IsEntityPlayingAnim(ped, dictionary, enterAnimation, 3))
+                    await Delay(100);
+            }
+
+            if (!string.IsNullOrEmpty(exitAnimation))
+            {
+                TaskPlayAnim(
+                    ped,
+                    dictionary,
+                    exitAnimation,
+                    8f,
+                    -8f,
+                    -1,
+                    0,
+                    0f,
+                    false,
+                    false,
+                    false
+                );
+
+                while (IsEntityPlayingAnim(ped, dictionary, exitAnimation, 3))
+                    await Delay(100);
+            }
+
+            if (!string.IsNullOrEmpty(animation))
+            {
+                TaskPlayAnim(
+                    ped,
+                    dictionary,
+                    animation,
+                    8f,
+                    -8f,
+                    -1,
+                    0,
+                    0f,
+                    false,
+                    false,
+                    false
+                );
+            }
+        }
+
 
         private async void OnMovementClipsetUpdated(string clipset)
         {

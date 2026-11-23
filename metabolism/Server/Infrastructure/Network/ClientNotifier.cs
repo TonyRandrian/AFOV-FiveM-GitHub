@@ -40,7 +40,7 @@ namespace metabolism.Server.Infrastructure.Network
                 }
             }
 
-            object response = new 
+            object response = new
             {
                 Permanents = permanents,
                 Hiddens = hiddens
@@ -49,7 +49,7 @@ namespace metabolism.Server.Infrastructure.Network
             string responseJson = JsonConvert.SerializeObject(response);
             state.Player.TriggerEvent(Events.UPDATE_STATE, responseJson);
         }
-        
+
         public void SendBodyParts(PlayerState state)
         {
             List<object> responseList = new List<object>();
@@ -86,6 +86,19 @@ namespace metabolism.Server.Infrastructure.Network
         public void SendMovementClipset(PlayerState state, string clipset)
         {
             state.Player.TriggerEvent(Events.UPDATE_MOVEMENT_CLIPSET, clipset ?? string.Empty);
+        }
+
+        public void SendAnimation(PlayerState state, AnimationRule animation)
+        {
+            state.Player.TriggerEvent(
+                Events.UPDATE_ANIMATION,
+                animation?.Dictionary ?? string.Empty,
+                animation?.Animation ?? string.Empty,
+                animation?.EnterAnimation ?? string.Empty,
+                animation?.ExitAnimation ?? string.Empty,
+                animation?.PlaybackType.ToString() ?? string.Empty,
+                animation?.Interval ?? 0
+            );
         }
     }
 }

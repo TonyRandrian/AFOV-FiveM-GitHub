@@ -1,7 +1,119 @@
 [
-    { "BodyPart": "LEFT_LEG", "State": "DISABLED", "MovementClipset": "move_m@large_crouched", "Priority": 100 },
-    { "BodyPart": "LEFT_LEG", "State": "CRITICAL", "MovementClipset": "move_m@injured", "Priority": 80 },
-    { "BodyPart": "RIGHT_LEG", "State": "DISABLED", "MovementClipset": "move_m@large_crouched", "Priority": 100 },
-    { "BodyPart": "RIGHT_LEG", "State": "CRITICAL", "MovementClipset": "move_m@injured", "Priority": 80 },
-    { "BodyPart": "TORSO", "State": "CRITICAL", "MovementClipset": "move_m@injured", "Priority": 60 }
+    {
+        "BodyPart": "HEAD",
+        "State": "INJURED",
+        "Dictionary": "anim@mp_player_intupperface_palm",
+        "EnterAnimation": "enter",
+        "ExitAnimation": "exit",
+        "PlaybackType": "PERIODIC",
+        "Interval": 20,
+        "Priority": 50
+    },
+    {
+        "BodyPart": "HEAD",
+        "State": "CRITICAL",
+        "Dictionary": "amb@world_human_bum_standing@drunk@idle_a",
+        "Animation": "idle_a",
+        "PlaybackType": "PERIODIC",
+        "Interval": 12,
+        "Priority": 80
+    },
+    {
+        "BodyPart": "HEAD",
+        "State": "DISABLED",
+        "Dictionary": "combat@damage@writheidle_a",
+        "Animation": "writhe_idle_a",
+        "PlaybackType": "PERMANENT",
+        "Priority": 100
+    },
+    {
+        "BodyPart": "TORSO",
+        "State": "CRITICAL",
+        "Dictionary": "anim@scripted@ulp_missions@injured_agent@",
+        "EnterAnimation": "enter_male",
+        "ExitAnimation": "exit_male",
+        "PlaybackType": "PERIODIC",
+        "Interval": 12,
+        "Priority": 85
+    },
+    {
+        "BodyPart": "TORSO",
+        "State": "DISABLED",
+        "Dictionary": "combat@damage@writheidle_a",
+        "Animation": "writhe_idle_c",
+        "PlaybackType": "PERMANENT",
+        "Priority": 95
+    },
+    {
+        "BodyPart": "LEFT_ARM",
+        "State": "INJURED",
+        "Dictionary": "misstattoo_parlour@shop_ig_4bplayer",
+        "Animation": "left_arm_idle_b",
+        "PlaybackType": "PERIODIC",
+        "Interval": 20,
+        "Priority": 50
+    },
+    {
+        "BodyPart": "LEFT_ARM",
+        "State": "CRITICAL",
+        "Dictionary": "random@chasethieves1",
+        "Animation": "struggle_loop_a_shopkeeper",
+        "PlaybackType": "PERIODIC",
+        "Interval": 12,
+        "Priority": 75
+    },
+    {
+        "BodyPart": "RIGHT_ARM",
+        "State": "INJURED",
+        "Dictionary": "misstattoo_parlour@shop_ig_4bplayer",
+        "Animation": "right_arm_idle_b",
+        "PlaybackType": "PERIODIC",
+        "Interval": 20,
+        "Priority": 50
+    },
+    {
+        "BodyPart": "RIGHT_ARM",
+        "State": "CRITICAL",
+        "Dictionary": "random@chasethieves1",
+        "Animation": "struggle_loop_a_shopkeeper",
+        "PlaybackType": "PERIODIC",
+        "Interval": 12,
+        "Priority": 75
+    },
+    {
+        "BodyPart": "LEFT_LEG",
+        "State": "INJURED",
+        "MovementClipset": "move_m@injured",
+        "Priority": 50
+    },
+    {
+        "BodyPart": "LEFT_LEG",
+        "State": "CRITICAL",
+        "MovementClipset": "anim@move_lester",
+        "Priority": 70
+    },
+    {
+        "BodyPart": "LEFT_LEG",
+        "State": "DISABLED",
+        "MovementClipset": "anim@move_lester",
+        "Priority": 90
+    },
+    {
+        "BodyPart": "RIGHT_LEG",
+        "State": "INJURED",
+        "MovementClipset": "move_m@injured",
+        "Priority": 50
+    },
+    {
+        "BodyPart": "RIGHT_LEG",
+        "State": "CRITICAL",
+        "MovementClipset": "anim@move_lester",
+        "Priority": 70
+    },
+    {
+        "BodyPart": "RIGHT_LEG",
+        "State": "DISABLED",
+        "MovementClipset": "anim@move_lester",
+        "Priority": 90
+    }
 ]

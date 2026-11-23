@@ -21,23 +21,34 @@ namespace metabolism.Server.Application.Services
 
         public void Refresh(PlayerState state)
         {
-            AnimationRule best = null;
-
-            foreach (BodyPartCharacterStatus status in state.BodyPartsStatus)
-            {
-                InjuryState injuryState = status.GetInjuryState();
-
-                AnimationRule match = _rules
-                    .FirstOrDefault(r => r.BodyPart == status.BodyPart.BodyPart
-                    && r.State == injuryState);
-
-                if (match != null && (best == null || match.Priority > best.Priority))
+            AnimationRule[] activeRules = state.BodyPartsStatus
+                .Select(status =>
                 {
-                    best = match;
-                }
-            }
+                    InjuryState injuryState = status.GetInjuryState();
 
-            _notifier.SendMovementClipset(state, best?.MovementClipset);
+                    return _rules.FirstOrDefault(r =>
+                        r.BodyPart == status.BodyPart.BodyPart &&
+                        r.State == injuryState);
+                })
+                .Where(rule => rule != null)
+                .ToArray();
+
+            AnimationRule bestMovement = activeRules
+                .Where(r => !string.IsNullOrWhiteSpace(r.MovementClipset))
+                .OrderByDescending(r => r.Priority)
+                .FirstOrDefault();
+
+            _notifier.SendMovementClipset(
+                state,
+                bestMovement?.MovementClipset
+            );
+
+            AnimationRule bestAnimation = activeRules
+                .Where(r => !string.IsNullOrWhiteSpace(r.Dictionary))
+                .OrderByDescending(r => r.Priority)
+                .FirstOrDefault();
+
+            _notifier.SendAnimation(state, bestAnimation);
         }
     }
 }

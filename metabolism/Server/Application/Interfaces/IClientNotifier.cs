@@ -1,4 +1,5 @@
 ﻿using metabolism.Server.Application.Utils;
+using metabolism.Server.Domain;
 using metabolism.Shared;
 
 namespace metabolism.Server.Application.Interfaces
@@ -10,5 +11,6 @@ namespace metabolism.Server.Application.Interfaces
         void SendPlayerDeath(PlayerState state);
         void SendRestrictions(PlayerState state, ActionRestriction restrictions);
         void SendMovementClipset(PlayerState state, string clipset);
+        void SendAnimation(PlayerState state, AnimationRule animation);
     }
 }
